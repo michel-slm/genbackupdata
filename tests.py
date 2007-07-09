@@ -378,6 +378,11 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_max_files_per_directory(), 12765)
 
+    def testHandlesOptionForPercentageTextData(self):
+        args = self.clp.parse(["--percentage-text-data=4.2"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(self.bd.get_text_data_percentage(), 4.2)
+
 
 if __name__ == "__main__":
     unittest.main()

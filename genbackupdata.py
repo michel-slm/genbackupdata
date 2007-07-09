@@ -396,6 +396,11 @@ class CommandLineParser:
                      metavar="COUNT",
                      help="Allow at most COUNT files per directory")
 
+        p.add_option("--percentage-text-data",
+                     action="store",
+                     metavar="PERCENT",
+                     help="Make PERCENT of new data textual, not binary")
+
         return p
 
     def parse(self, args):
@@ -407,5 +412,9 @@ class CommandLineParser:
         
         if options.max_count:
             self._bd.set_max_files_per_directory(int(options.max_count))
+        
+        if options.percentage_text_data:
+            self._bd.set_text_data_percentage(
+                float(options.percentage_text_data))
 
         return args
