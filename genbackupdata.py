@@ -398,37 +398,37 @@ class CommandLineParser:
                      metavar="COUNT",
                      help="Allow at most COUNT files per directory")
 
-        p.add_option("--percentage-text-data",
+        p.add_option("-p", "--percentage-text-data",
                      action="store",
                      metavar="PERCENT",
                      help="Make PERCENT of new data textual, not binary")
 
-        p.add_option("--text-file-size",
+        p.add_option("-t", "--text-file-size",
                      action="store",
                      metavar="SIZE",
                      help="Make new text files be of size SIZE")
 
-        p.add_option("--binary-file-size",
+        p.add_option("-b", "--binary-file-size",
                      action="store",
                      metavar="SIZE",
                      help="Make new binary files be of size SIZE")
 
-        p.add_option("--create",
+        p.add_option("-c", "--create",
                      action="store",
                      metavar="SIZE",
                      help="Create SIZE amount of new files")
 
-        p.add_option("--delete",
+        p.add_option("-d", "--delete",
                      action="store",
                      metavar="COUNT",
                      help="Delete COUNT files")
 
-        p.add_option("--rename",
+        p.add_option("-r", "--rename",
                      action="store",
                      metavar="COUNT",
                      help="Rename COUNT files")
 
-        p.add_option("--modify",
+        p.add_option("-m", "--modify",
                      action="store",
                      metavar="SIZE",
                      help="Grow total data size by SIZE")
