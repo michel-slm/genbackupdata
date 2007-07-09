@@ -46,6 +46,13 @@ class BackupDataTests(unittest.TestCase):
         f.write(contents)
         f.close()
 
+    def read_file(self, filename):
+        """Return the entire contents of a file"""
+        f = file(filename)
+        data = f.read()
+        f.close()
+        return data
+
     def setUp(self):
         self.remove_dir()
         self.bd = genbackupdata.BackupData(self.dirname)
@@ -232,6 +239,14 @@ class BackupDataTests(unittest.TestCase):
         data = zlib.compress(self.bd.generate_binary_data(n))
         print len(data)
         self.failUnless(len(data) > 0.95* n)
+
+    def testCreatesTextDataCorrectly(self):
+        size = self.bd.get_text_file_size()
+        filename = self.bd.next_filename()
+        self.bd.create_text_file(size)
+        self.failUnless(os.path.isfile(filename))
+        self.failUnlessEqual(self.read_file(filename), 
+                             self.bd.generate_text_data(size))
 
 
 if __name__ == "__main__":

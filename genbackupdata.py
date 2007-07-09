@@ -239,3 +239,10 @@ class BackupData:
         for i in range(size):
             bytes.append(chr(self._prng.randint(0, 255)))
         return "".join(bytes)
+
+    def create_text_file(self, size):
+        """Create a new text file of the desired size"""
+        self.create_directory()
+        f = file(self.next_filename(), "w")
+        f.write(self.generate_text_data(size))
+        f.close()
