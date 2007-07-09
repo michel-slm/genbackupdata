@@ -46,6 +46,10 @@ class BackupDataTests(unittest.TestCase):
     def testDoesNotCreateDirectoryAtOnce(self):
         self.failIf(os.path.exists(self.dirname))
 
+    def testCreatesDirectory(self):
+        self.bd.create_directory()
+        self.failUnless(os.path.exists(self.dirname))
+
 
 if __name__ == "__main__":
     unittest.main()

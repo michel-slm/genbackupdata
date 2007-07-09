@@ -20,6 +20,9 @@
 """Generate backup test data"""
 
 
+import os
+
+
 class BackupData:
 
     """This class represents the directory with backup data"""
@@ -27,3 +30,7 @@ class BackupData:
     def __init__(self, dirname):
         self._dirname = dirname
         
+    def create_directory(self):
+        """Create the backup data directory, if it doesn't exist already"""
+        if not os.path.exists(self._dirname):
+            os.mkdir(self._dirname)
