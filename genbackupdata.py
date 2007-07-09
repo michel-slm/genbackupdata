@@ -297,14 +297,18 @@ class BackupData:
         self._create_files_of_a_kind(bin_size, self.get_binary_file_size(),
                                      self.create_binary_file)
 
+    def find_files(self):
+        """Find all non-directory files in the test data set"""
+        files = []
+        for root, dirs, filenames in os.walk(self._dirname):
+            for filename in filenames:
+                files.append(os.path.join(root, filename))
+        return files
+
     def delete_files(self, count):
         """Delete COUNT files"""
         if os.path.exists(self._dirname):
-            files = []
-            for root, dirs, filenames in os.walk(self._dirname):
-                for filename in filenames:
-                    files.append(os.path.join(root, filename))
-
+            files = self.find_files()
             if len(files) > count:
                 self.init_prng()
                 files = self._prng.sample(files, count)
@@ -314,11 +318,7 @@ class BackupData:
     def rename_files(self, count):
         """Rename COUNT files to new names"""
         if os.path.exists(self._dirname):
-            files = []
-            for root, dirs, filenames in os.walk(self._dirname):
-                for filename in filenames:
-                    files.append(os.path.join(root, filename))
-
+            files = self.find_files()
             if len(files) >= count:
                 self.init_prng()
                 files = self._prng.sample(files, count)
@@ -361,10 +361,7 @@ class BackupData:
         """
         
         if os.path.exists(self._dirname):
-            files = []
-            for root, dirs, filenames in os.walk(self._dirname):
-                for filename in filenames:
-                    files.append(os.path.join(root, filename))
+            files = self.find_files()
 
             text_size = int(0.01 * self._text_data_percentage * size)
             bin_size = size - text_size
