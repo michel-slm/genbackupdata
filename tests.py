@@ -71,6 +71,17 @@ class BackupDataTests(unittest.TestCase):
         self.bd.set_seed(12765)
         self.failUnlessEqual(self.bd.get_seed(), 12765)
 
+    def testHasNoPRNGInitially(self):
+        self.failUnlessEqual(self.bd.get_prng(), None)
+
+    def testCreatesPRNGWhenRequested(self):
+        self.bd.init_prng()
+        self.failIfEqual(self.bd.get_prng(), None)
+
+    def testFailsIfPRNGGetsCreatedTwice(self):
+        self.bd.init_prng()
+        self.failUnlessRaises(AssertionError, self.bd.init_prng)
+
     def testHasCorrectDefaultTextFileSize(self):
         self.failUnlessEqual(self.bd.get_text_file_size(), 
                              genbackupdata.DEFAULT_TEXT_FILE_SIZE)

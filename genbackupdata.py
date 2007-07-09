@@ -21,6 +21,7 @@
 
 
 import os
+import random
 
 
 KiB = 2 ** 10   # A kibibyte
@@ -52,6 +53,7 @@ class BackupData:
     def __init__(self, dirname):
         self._dirname = dirname
         self._seed = 0
+        self._prng = None
         self._text_file_size = DEFAULT_TEXT_FILE_SIZE
         self._binary_file_size = DEFAULT_BINARY_FILE_SIZE
         self._text_data_percentage = DEFAULT_TEXT_DATA_PERCENTAGE
@@ -79,6 +81,21 @@ class BackupData:
         """
         
         self._seed = seed
+
+    def get_prng(self):
+        """Return reference to the psuedo-random number generator being used
+        
+        Return None, if one hasn't be initialized yet.
+        
+        """
+        
+        return self._prng
+        
+    def init_prng(self):
+        """Initialize the psuedo-random number generator (using seed)"""
+        assert self._prng is None
+        self._prng = random.Random()
+        self._prng.seed(self._seed)
 
     def get_text_file_size(self):
         """Return size of newly created text files"""
