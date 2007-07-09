@@ -116,6 +116,10 @@ class BackupDataTests(unittest.TestCase):
         self.bd.find_preexisting_files()
         self.failUnlessEqual(self.bd.get_preexisting_data_size(), 0)
 
+    def testChoosesFirstFilenameCorrectly(self):
+        filename = self.bd.next_filename()
+        self.failUnlessEqual(filename, os.path.join(self.dirname, "file1"))
+
 
 if __name__ == "__main__":
     unittest.main()

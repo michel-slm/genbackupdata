@@ -45,6 +45,7 @@ class BackupData:
         self._max_files_per_directory = DEFAULT_MAX_FILES_PER_DIRECTORY
         self._preexisting_file_count = 0
         self._preexisting_data_size = 0
+        self._filename_counter = 0
         
     def create_directory(self):
         """Create the backup data directory, if it doesn't exist already"""
@@ -117,3 +118,18 @@ class BackupData:
 
     def find_preexisting_files(self):
         """Find all the files that exists in the directory right now"""
+
+    def next_filename(self):
+        """Choose the name of the next filename
+        
+        The file does not currently exist. This is not, however, a guarantee
+        that no other process won't create it before we do. Thus, this
+        is NOT a secure way to create temporary files. But it's good enough
+        for our intended purpose.
+        
+        For simplified unit testing, the names are very easily predictable,
+        but it is probably a bad idea for external code to rely on this.
+        
+        """
+        self._filename_counter += 1
+        return os.path.join(self._dirname, "file%d" % self._filename_counter)
