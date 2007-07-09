@@ -29,6 +29,7 @@ MiB = 2 ** 20   # A mebibyte
 
 # Defaults for various settings in the BackupData class.
 DEFAULT_SEED = 0
+DEFAULT_BINARY_CHUNK_SIZE = KiB
 DEFAULT_TEXT_FILE_SIZE = 10 * KiB
 DEFAULT_BINARY_FILE_SIZE = 10 * MiB
 DEFAULT_TEXT_DATA_PERCENTAGE = 10.0
@@ -54,6 +55,7 @@ class BackupData:
         self._dirname = dirname
         self._seed = 0
         self._prng = None
+        self._chunk_size = DEFAULT_BINARY_CHUNK_SIZE
         self._text_file_size = DEFAULT_TEXT_FILE_SIZE
         self._binary_file_size = DEFAULT_BINARY_FILE_SIZE
         self._text_data_percentage = DEFAULT_TEXT_DATA_PERCENTAGE
@@ -245,4 +247,25 @@ class BackupData:
         self.create_directory()
         f = file(self.next_filename(), "w")
         f.write(self.generate_text_data(size))
+        f.close()
+
+    def get_binary_chunk_size(self):
+        """Return the size of chunks used when writing binary data"""
+        return self._chunk_size
+
+    def set_binary_chunk_size(self, size):
+        """Set the size of chunks used when writing binary data"""
+        self._chunk_size = size
+
+    def create_binary_file(self, size):
+        """Create a new binary file of the desired size"""
+        self.create_directory()
+        f = file(self.next_filename(), "w")
+        # We write the data in chunks, so as not to keep the entire file
+        # contents in memory at a time. Since the size may be very large,
+        # we might otherwise run out of swap.
+        while size >= self._chunk_size:
+            f.write(self.generate_binary_data(self._chunk_size))
+            size -= self._chunk_size
+        f.write(self.generate_binary_data(size))
         f.close()

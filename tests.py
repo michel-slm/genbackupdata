@@ -90,6 +90,14 @@ class BackupDataTests(unittest.TestCase):
         self.bd.init_prng()
         self.failUnlessRaises(AssertionError, self.bd.set_seed, 12765)
 
+    def testHasCorrectDefaultBinaryChunkSize(self):
+        self.failUnlessEqual(self.bd.get_binary_chunk_size(), 
+                             genbackupdata.DEFAULT_BINARY_CHUNK_SIZE)
+
+    def testCorrectlySetsBinaryChunkSize(self):
+        self.bd.set_binary_chunk_size(12765)
+        self.failUnlessEqual(self.bd.get_binary_chunk_size(), 12765)
+
     def testHasCorrectDefaultTextFileSize(self):
         self.failUnlessEqual(self.bd.get_text_file_size(), 
                              genbackupdata.DEFAULT_TEXT_FILE_SIZE)
@@ -237,16 +245,22 @@ class BackupDataTests(unittest.TestCase):
     def testGeneratesBinaryDataWhichDoesNotCompressWell(self):
         n = 10 * 1024
         data = zlib.compress(self.bd.generate_binary_data(n))
-        print len(data)
         self.failUnless(len(data) > 0.95* n)
 
-    def testCreatesTextDataCorrectly(self):
+    def testCreatesTextFileCorrectly(self):
         size = self.bd.get_text_file_size()
         filename = self.bd.next_filename()
         self.bd.create_text_file(size)
         self.failUnless(os.path.isfile(filename))
         self.failUnlessEqual(self.read_file(filename), 
                              self.bd.generate_text_data(size))
+
+    def testCreatesBinaryFileCorrectly(self):
+        size = self.bd.get_binary_chunk_size() + 1
+        filename = self.bd.next_filename()
+        self.bd.create_binary_file(size)
+        self.failUnless(os.path.isfile(filename))
+        self.failUnlessEqual(os.path.getsize(filename), size)
 
 
 if __name__ == "__main__":
