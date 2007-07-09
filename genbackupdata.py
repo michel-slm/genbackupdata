@@ -423,6 +423,11 @@ class CommandLineParser:
                      metavar="COUNT",
                      help="Delete COUNT files")
 
+        p.add_option("--rename",
+                     action="store",
+                     metavar="COUNT",
+                     help="Rename COUNT files")
+
         return p
 
     def parse_size(self, size, base_size=None):
@@ -487,6 +492,10 @@ class CommandLineParser:
 
         if options.delete:
             options.delete = self.parse_count(options.delete, 
+                                        self._bd.get_preexisting_file_count())
+
+        if options.rename:
+            options.rename = self.parse_count(options.rename, 
                                         self._bd.get_preexisting_file_count())
 
         return options, args

@@ -459,6 +459,11 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(options.delete, 1276)
 
+    def testHandlesOptionForRename(self):
+        options, args = self.clp.parse(["--rename=12765"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(options.rename, 12765)
+
 
 if __name__ == "__main__":
     unittest.main()
