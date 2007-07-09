@@ -407,6 +407,11 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_text_file_size(), 12765)
 
+    def testHandlesOptionForTextFileSizeWithSuffix(self):
+        args = self.clp.parse(["--text-file-size=1t"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(self.bd.get_text_file_size(), genbackupdata.TiB)
+
 
 if __name__ == "__main__":
     unittest.main()

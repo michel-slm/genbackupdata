@@ -442,6 +442,7 @@ class CommandLineParser:
                 float(options.percentage_text_data))
 
         if options.text_file_size:
-            self._bd.set_text_file_size(int(options.text_file_size))
+            self._bd.set_text_file_size(
+                self.parse_size(options.text_file_size))
 
         return args
