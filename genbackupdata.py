@@ -308,3 +308,17 @@ class BackupData:
                 files = self._prng.sample(files, count)
             for file in files:
                 os.remove(file)
+
+    def rename_files(self, count):
+        """Rename COUNT files to new names"""
+        if os.path.exists(self._dirname):
+            files = []
+            for root, dirs, filenames in os.walk(self._dirname):
+                for filename in filenames:
+                    files.append(os.path.join(root, filename))
+
+            if len(files) >= count:
+                self.init_prng()
+                files = self._prng.sample(files, count)
+            for file in files:
+                os.rename(file, self.next_filename())

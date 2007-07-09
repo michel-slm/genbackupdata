@@ -290,7 +290,7 @@ class BackupDataTests(unittest.TestCase):
 
     def testCreatesNoTextFilesCorrectly(self):
         self.bd.set_text_data_percentage(0)
-        count = 10
+        count = 1
         size = count * self.bd.get_text_file_size()
         self.bd.create_files(size)
         self.bd.find_preexisting_files()
@@ -313,6 +313,15 @@ class BackupDataTests(unittest.TestCase):
         self.bd.delete_files(to_delete)
         self.bd.find_preexisting_files()
         self.failUnlessEqual(self.bd.get_preexisting_file_count(), remaining)
+
+    def testRenameFiles(self):
+        self.bd.create_directory()
+        filename = self.bd.next_filename()
+        self.create(filename, "")
+        new_filename = self.bd.next_filename()
+        self.bd.rename_files(1)
+        self.failIf(os.path.exists(filename))
+        self.failUnless(os.path.exists(new_filename))
 
 
 if __name__ == "__main__":
