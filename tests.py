@@ -536,6 +536,12 @@ class ApplicationTests(unittest.TestCase):
         self.failUnlessEqual(self.data_size(), 11 * genbackupdata.KiB)
         self.failUnlessEqual(self.file_count(), count)
 
+    def testDeletesFilesForSecongGenerationCorrectly(self):
+        self.apprun(["-c10k", self.dirname])
+        count = self.file_count()
+        self.apprun(["-d2", self.dirname])
+        self.failUnlessEqual(self.file_count(), count - 2)
+
 
 if __name__ == "__main__":
     unittest.main()

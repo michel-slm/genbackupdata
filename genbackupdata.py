@@ -570,6 +570,9 @@ class Application:
 
             self._bd.set_directory(args[0])
             
+            if options.delete:
+                self._bd.delete_files(options.delete)
+            
             if options.modify:
                 self._bd.modify_files(options.modify)
             
