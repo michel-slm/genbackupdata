@@ -50,6 +50,10 @@ class BackupDataTests(unittest.TestCase):
         self.bd.create_directory()
         self.failUnless(os.path.exists(self.dirname))
 
+    def testDoesNotFailWhenCreatingDirectoryWhenItExistsAlready(self):
+        self.bd.create_directory()
+        self.bd.create_directory()
+
 
 if __name__ == "__main__":
     unittest.main()
