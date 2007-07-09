@@ -371,7 +371,7 @@ class CommandLineParserTests(unittest.TestCase):
     def testParsesPlainSizeCorrectly(self):
         self.failUnlessEqual(self.clp.parse_size("12765"), 12765)
 
-    def testParsesAbsoluteSuffixesCorrectly(self):
+    def testParsesAbsoluteSizeSuffixesCorrectly(self):
         self.failUnlessEqual(self.clp.parse_size("3k"), 3 * genbackupdata.KiB)
         self.failUnlessEqual(self.clp.parse_size("3K"), 3 * genbackupdata.KiB)
         self.failUnlessEqual(self.clp.parse_size("3m"), 3 * genbackupdata.MiB)
@@ -381,11 +381,30 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(self.clp.parse_size("3t"), 3 * genbackupdata.TiB)
         self.failUnlessEqual(self.clp.parse_size("3T"), 3 * genbackupdata.TiB)
 
-    def testParsesRelativeSuffixCorrectly(self):
+    def testParsesRelativeSizeSuffixCorrectly(self):
         self.failUnlessEqual(self.clp.parse_size("10%", 12765), 1276)
 
-    def testParsesRelativeSuffixCorrectlyWithMissingBaseSize(self):
+    def testParsesRelativeSizeSuffixCorrectlyWithMissingBaseSize(self):
         self.failUnlessEqual(self.clp.parse_size("10%"), 0)
+
+    def testParsesPlainCountCorrectly(self):
+        self.failUnlessEqual(self.clp.parse_count("12765"), 12765)
+
+    def testParsesAbsoluteCountSuffixesCorrectly(self):
+        self.failUnlessEqual(self.clp.parse_count("3k"), 3 * 10**3)
+        self.failUnlessEqual(self.clp.parse_count("3K"), 3 * 10**3)
+        self.failUnlessEqual(self.clp.parse_count("3m"), 3 * 10**6)
+        self.failUnlessEqual(self.clp.parse_count("3M"), 3 * 10**6)
+        self.failUnlessEqual(self.clp.parse_count("3g"), 3 * 10**9)
+        self.failUnlessEqual(self.clp.parse_count("3G"), 3 * 10**9)
+        self.failUnlessEqual(self.clp.parse_count("3t"), 3 * 10**12)
+        self.failUnlessEqual(self.clp.parse_count("3T"), 3 * 10**12)
+
+    def testParsesRelativeCountSuffixCorrectly(self):
+        self.failUnlessEqual(self.clp.parse_count("10%", 12765), 1276)
+
+    def testParsesRelativeCountSuffixCorrectlyWithMissingBaseSize(self):
+        self.failUnlessEqual(self.clp.parse_count("10%"), 0)
 
     def testHandlesOptionForSeed(self):
         optons, args = self.clp.parse(["--seed=12765"])
@@ -428,6 +447,17 @@ class CommandLineParserTests(unittest.TestCase):
         options, args = self.clp.parse(["--create=10%"])
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(options.create, 1276)
+
+    def testHandlesOptionForDelete(self):
+        options, args = self.clp.parse(["--delete=12765"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(options.delete, 12765)
+
+    def testHandlesOptionForDeleteWithRelativeCount(self):
+        self.bd.set_preexisting_file_count(12765)
+        options, args = self.clp.parse(["--delete=10%"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(options.delete, 1276)
 
 
 if __name__ == "__main__":

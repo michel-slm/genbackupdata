@@ -418,6 +418,11 @@ class CommandLineParser:
                      metavar="SIZE",
                      help="Create SIZE amount of new files")
 
+        p.add_option("--delete",
+                     action="store",
+                     metavar="COUNT",
+                     help="Delete COUNT files")
+
         return p
 
     def parse_size(self, size, base_size=None):
@@ -436,6 +441,23 @@ class CommandLineParser:
                 return int(float(size[:-1]) * 0.01 * base_size)
 
         return int(size)
+
+    def parse_count(self, count, base_count=None):
+        """Parse a COUNT argument (absolute, relative, with/without suffix)"""
+        
+        suffixes = (("k", 10**3), ("m", 10**6), ("g", 10**9), ("t", 10**12))
+
+        for suffix, factor in suffixes:
+            if count.lower().endswith(suffix):
+                return int(float(count[:-len(suffix)]) * factor)
+
+        if count.endswith("%"):
+            if base_count is None:
+                return 0
+            else:
+                return int(float(count[:-1]) * 0.01 * base_count)
+
+        return int(count)
 
     def parse(self, args):
         """Parse command line arguments"""
@@ -462,5 +484,9 @@ class CommandLineParser:
         if options.create:
             options.create = self.parse_size(options.create, 
                                         self._bd.get_preexisting_data_size())
+
+        if options.delete:
+            options.delete = self.parse_count(options.delete, 
+                                        self._bd.get_preexisting_file_count())
 
         return options, args
