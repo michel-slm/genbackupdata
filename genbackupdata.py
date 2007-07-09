@@ -24,8 +24,11 @@ import os
 
 
 KiB = 2 ** 10   # A kibibyte
+MiB = 2 ** 20   # A mebibyte
 
+# Default sizes for newly created text and binary files.
 DEFAULT_TEXT_FILE_SIZE = 10 * KiB
+DEFAULT_BINARY_FILE_SIZE = 10 * MiB
 
 
 class BackupData:
@@ -35,6 +38,7 @@ class BackupData:
     def __init__(self, dirname):
         self._dirname = dirname
         self._text_file_size = DEFAULT_TEXT_FILE_SIZE
+        self._binary_file_size = DEFAULT_BINARY_FILE_SIZE
         
     def create_directory(self):
         """Create the backup data directory, if it doesn't exist already"""
@@ -48,3 +52,11 @@ class BackupData:
     def set_text_file_size(self, size):
         """Set size of newly created text files"""
         self._text_file_size = size
+
+    def get_binary_file_size(self):
+        """Return size of newly created binary files"""
+        return self._binary_file_size
+
+    def set_binary_file_size(self, size):
+        """Set size of newly created binary files"""
+        self._binary_file_size = size

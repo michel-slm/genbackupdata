@@ -62,6 +62,14 @@ class BackupDataTests(unittest.TestCase):
         self.bd.set_text_file_size(12765)
         self.failUnlessEqual(self.bd.get_text_file_size(), 12765)
 
+    def testHasCorrectDefaultBinaryFileSize(self):
+        self.failUnlessEqual(self.bd.get_binary_file_size(), 
+                             genbackupdata.DEFAULT_BINARY_FILE_SIZE)
+
+    def testCorrectlySetsBinaryFileSize(self):
+        self.bd.set_binary_file_size(12765)
+        self.failUnlessEqual(self.bd.get_binary_file_size(), 12765)
+
 
 if __name__ == "__main__":
     unittest.main()
