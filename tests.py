@@ -510,16 +510,17 @@ class ApplicationTests(unittest.TestCase):
         app.set_error_writer(self.nop)
         self.failUnlessRaises(SystemExit, app.run)
 
-    def testCreatesFirstGenerationCorrectly(self):
-        app = genbackupdata.Application(["-c100k", self.dirname])
+    def apprun(self, args):
+        app = genbackupdata.Application(args)
         app.run()
+
+    def testCreatesFirstGenerationCorrectly(self):
+        self.apprun(["-c100k", self.dirname])
         self.failUnlessEqual(self.data_size(), 100 * genbackupdata.KiB)
 
     def testIncreasesSecondGenerationCorrectly(self):
-        app = genbackupdata.Application(["-c100k", self.dirname])
-        app.run()
-        app = genbackupdata.Application(["-c100k", self.dirname])
-        app.run()
+        self.apprun(["-c100k", self.dirname])
+        self.apprun(["-c100k", self.dirname])
         self.failUnlessEqual(self.data_size(), 200 * genbackupdata.KiB)
 
 
