@@ -305,24 +305,24 @@ class BackupData:
                 files.append(os.path.join(root, filename))
         return files
 
+    def choose_files_randomly(self, count):
+        """Choose COUNT files randomly"""
+        files = self.find_files()
+        if len(files) >= count:
+            self.init_prng()
+            files = self._prng.sample(files, count)
+        return files
+
     def delete_files(self, count):
         """Delete COUNT files"""
         if os.path.exists(self._dirname):
-            files = self.find_files()
-            if len(files) > count:
-                self.init_prng()
-                files = self._prng.sample(files, count)
-            for file in files:
+            for file in self.choose_files_randomly(count):
                 os.remove(file)
 
     def rename_files(self, count):
         """Rename COUNT files to new names"""
         if os.path.exists(self._dirname):
-            files = self.find_files()
-            if len(files) >= count:
-                self.init_prng()
-                files = self._prng.sample(files, count)
-            for file in files:
+            for file in self.choose_files_randomly(count):
                 os.rename(file, self.next_filename())
 
     def get_modify_percentage(self):
