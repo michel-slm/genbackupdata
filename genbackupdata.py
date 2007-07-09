@@ -20,6 +20,7 @@
 """Generate backup test data"""
 
 
+import optparse
 import os
 import random
 
@@ -371,3 +372,31 @@ class BackupData:
                                          self.generate_text_data)
             self._modify_files_of_a_kind(files, bin_size, 
                                          self.generate_binary_data)
+
+
+
+class CommandLineParser:
+
+    """Parse the command line for the genbackupdata utility"""
+    
+    def __init__(self, backup_data):
+        self._bd = backup_data
+        self._parser = self._create_option_parser()
+
+    def _create_option_parser(self):
+        """Create the OptionParser we need"""
+        
+        p = optparse.OptionParser()
+        p.add_option("--seed",
+                     help="Set pseudo-random number generator seed to SEED")
+
+        return p
+
+    def parse(self, args):
+        """Parse command line arguments"""
+        options, args = self._parser.parse_args(args)
+        
+        if options.seed:
+            self._bd.set_seed(int(options.seed))
+
+        return args

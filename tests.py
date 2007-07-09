@@ -341,5 +341,38 @@ class BackupDataTests(unittest.TestCase):
         self.failUnlessEqual(len(self.read_file(filename)), 2 * size)
 
 
+class CommandLineParserTests(unittest.TestCase):
+
+    dirname = "tests.dir"
+
+    def setUp(self):
+        self.bd = genbackupdata.BackupData(self.dirname)
+        self.clp = genbackupdata.CommandLineParser(self.bd)
+        
+    def tearDown(self):
+        del self.bd
+        del self.clp
+
+    def testDoesNotTouchDefaultsWithEmptyCommandLine(self):
+        self.failUnlessEqual(self.bd.get_seed(), genbackupdata.DEFAULT_SEED)
+        self.failUnlessEqual(self.bd.get_binary_chunk_size(),
+                             genbackupdata.DEFAULT_BINARY_CHUNK_SIZE)
+        self.failUnlessEqual(self.bd.get_text_file_size(),
+                             genbackupdata.DEFAULT_TEXT_FILE_SIZE)
+        self.failUnlessEqual(self.bd.get_binary_file_size(),
+                             genbackupdata.DEFAULT_BINARY_FILE_SIZE)
+        self.failUnlessEqual(self.bd.get_text_data_percentage(),
+                             genbackupdata.DEFAULT_TEXT_DATA_PERCENTAGE)
+        self.failUnlessEqual(self.bd.get_max_files_per_directory(),
+                             genbackupdata.DEFAULT_MAX_FILES_PER_DIRECTORY)
+        self.failUnlessEqual(self.bd.get_modify_percentage(),
+                             genbackupdata.DEFAULT_MODIFY_PERCENTAGE)
+
+    def testHandlesOptionForSeed(self):
+        args = self.clp.parse(["--seed=12765"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(self.bd.get_seed(), 12765)
+
+
 if __name__ == "__main__":
     unittest.main()
