@@ -356,11 +356,20 @@ class BackupData:
                 for filename in filenames:
                     files.append(os.path.join(root, filename))
 
+            text_size = int(0.01 * self._text_data_percentage * size)
+            bin_size = size - text_size
+
             self.init_prng()
-            while size > 0:
+            while text_size > 0 or bin_size > 0:
                 file = self._prng.choice(files)
                 this_size = os.path.getsize(file)
                 amount = int(0.01 * self._modify_percentage * this_size)
-                amount = min(amount, size)
-                self.append_data(file, self.generate_text_data(amount))
-                size -= amount
+                if text_size > 0:
+                    amount = min(amount, text_size)
+                    data = self.generate_text_data(amount)
+                    text_size -= amount
+                else:
+                    amount = min(amount, bin_size)
+                    data = self.generate_binary_data(amount)
+                    bin_size -= amount
+                self.append_data(file, data)

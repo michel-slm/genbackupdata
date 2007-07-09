@@ -337,7 +337,6 @@ class BackupDataTests(unittest.TestCase):
         filename = self.bd.next_filename()
         orig_data = "x" * size
         self.create(filename, orig_data)
-        self.bd.set_text_data_percentage(100)
         self.bd.modify_files(size)
         self.failUnlessEqual(len(self.read_file(filename)), 2 * size)
 
