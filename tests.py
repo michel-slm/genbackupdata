@@ -381,6 +381,12 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(self.clp.parse_size("3t"), 3 * genbackupdata.TiB)
         self.failUnlessEqual(self.clp.parse_size("3T"), 3 * genbackupdata.TiB)
 
+    def testParsesRelativeSuffixCorrectly(self):
+        self.failUnlessEqual(self.clp.parse_size("10%", 12765), 1276)
+
+    def testParsesRelativeSuffixCorrectlyWithMissingBaseSize(self):
+        self.failUnlessEqual(self.clp.parse_size("10%"), 0)
+
     def testHandlesOptionForSeed(self):
         args = self.clp.parse(["--seed=12765"])
         self.failUnlessEqual(args, [])

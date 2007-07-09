@@ -410,7 +410,7 @@ class CommandLineParser:
 
         return p
 
-    def parse_size(self, size):
+    def parse_size(self, size, base_size=None):
         """Parse a SIZE argument (absolute, relative, with/without suffix)"""
         
         suffixes = (("k", KiB), ("m", MiB), ("g", GiB), ("t", TiB))
@@ -418,6 +418,12 @@ class CommandLineParser:
         for suffix, factor in suffixes:
             if size.lower().endswith(suffix):
                 return int(float(size[:-len(suffix)]) * factor)
+
+        if size.endswith("%"):
+            if base_size is None:
+                return 0
+            else:
+                return int(float(size[:-1]) * 0.01 * base_size)
 
         return int(size)
 
