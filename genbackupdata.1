@@ -122,11 +122,21 @@ The new data is divided into text and binary data as for
 .BR \-\-create ,
 but no regard is given as to whether the file that receives the new data is
 a text or binary file.
-Files are picked by random among the pre-existing ones.
-A relative amount refers to the total size of pre-existing files.
+Files are picked by random among the pre-existing ones, and the size is
+increased according to the percentage set by
+.BR \-\-modify\-percentage .
+A relative 
+.I SIZE
+refers to the total size of pre-existing files.
 .I DIR
 must exist already.
 Default: 0.
+.TP
+\fB\-\-modify\-percentage\fR=\fIPERCENT\fR
+Set the number of percent each file is grown when using
+.BR \-\-modify .
+Note that zero size files are not grown (X% of 0 is always 0).
+Default: 10%.
 .SH EXAMPLES
 Create data for the first generation of a backup:
 .PP
