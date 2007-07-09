@@ -55,11 +55,15 @@ class BackupDataTests(unittest.TestCase):
 
     def setUp(self):
         self.remove_dir()
-        self.bd = genbackupdata.BackupData(self.dirname)
+        self.bd = genbackupdata.BackupData()
+        self.bd.set_directory(self.dirname)
         
     def tearDown(self):
         del self.bd
         self.remove_dir()
+
+    def testSetsDirectoryCorrect(self):
+        self.failUnlessEqual(self.bd.get_directory(), self.dirname)
 
     def testDoesNotCreateDirectoryAtOnce(self):
         self.failIf(os.path.exists(self.dirname))
@@ -346,7 +350,8 @@ class CommandLineParserTests(unittest.TestCase):
     dirname = "tests.dir"
 
     def setUp(self):
-        self.bd = genbackupdata.BackupData(self.dirname)
+        self.bd = genbackupdata.BackupData()
+        self.bd.set_directory(self.dirname)
         self.clp = genbackupdata.CommandLineParser(self.bd)
         
     def tearDown(self):
@@ -473,6 +478,42 @@ class CommandLineParserTests(unittest.TestCase):
         options, args = self.clp.parse(["--modify-percentage=4.2"])
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_modify_percentage(), 4.2)
+
+
+class ApplicationTests(unittest.TestCase):
+
+    dirname = "tests.dir"
+
+    def remove_dir(self):
+        """Remove a directory, if it exists"""
+        if os.path.exists(self.dirname):
+            shutil.rmtree(self.dirname)
+
+    def setUp(self):
+        self.remove_dir()
+        
+    def tearDown(self):
+        self.remove_dir()
+
+    def data_size(self):
+        size = 0
+        for root, dirs, filenames in os.walk(self.dirname):
+            for filename in filenames:
+                size += os.path.getsize(os.path.join(root, filename))
+        return size
+
+    def nop(self, *args):
+        pass
+
+    def testRaisesExceptionWithoutDirectory(self):
+        app = genbackupdata.Application([])
+        app.set_error_writer(self.nop)
+        self.failUnlessRaises(SystemExit, app.run)
+
+    def testCreatesFirstGenerationCorrectly(self):
+        app = genbackupdata.Application(["-c100k", self.dirname])
+        app.run()
+        self.failUnlessEqual(self.data_size(), 100 * genbackupdata.KiB)
 
 
 if __name__ == "__main__":

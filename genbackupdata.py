@@ -23,6 +23,7 @@
 import optparse
 import os
 import random
+import sys
 
 
 KiB = 2 ** 10   # A kibibyte
@@ -55,8 +56,8 @@ class BackupData:
 
     """This class represents the directory with backup data"""
     
-    def __init__(self, dirname):
-        self._dirname = dirname
+    def __init__(self):
+        self._dirname = None
         self._seed = 0
         self._prng = None
         self._chunk_size = DEFAULT_BINARY_CHUNK_SIZE
@@ -68,6 +69,21 @@ class BackupData:
         self._preexisting_file_count = 0
         self._preexisting_data_size = 0
         self._filename_counter = 0
+        
+    def set_directory(self, dirname):
+        """Set the directory to be operated on
+        
+        Note that this must be set exactly once. Setting it twice will cause
+        an assertion error, and not setting it will cause other errors.
+        
+        """
+        
+        assert self._dirname is None
+        self._dirname = dirname
+        
+    def get_directory(self):
+        """Return the directory being operated on, or None if not set"""
+        return self._dirname
         
     def create_directory(self):
         """Create the backup data directory, if it doesn't exist already"""
@@ -516,3 +532,47 @@ class CommandLineParser:
                                         self._bd.get_preexisting_file_count())
 
         return options, args
+
+
+class AppException(Exception):
+
+    def __str__(self):
+        return self._str
+        
+        
+class NeedExactlyOneDirectoryName(AppException):
+
+    def __init__(self):
+        self._str = \
+            "Need exactly one command line argument, giving directory name"
+
+
+class Application:
+
+    """The main program"""
+    
+    def __init__(self, args):
+        self._args = args
+        self._bd = BackupData()
+        self._clp = CommandLineParser(self._bd)
+        self._error = sys.stderr.write
+
+    def set_error_writer(self, writer):
+        self._error = writer
+
+    def run(self):
+        """Execute the desired operations"""
+        try:
+            options, args = self._clp.parse(self._args)
+            
+            if len(args) != 1:
+                raise NeedExactlyOneDirectoryName()
+
+            self._bd.set_directory(args[0])
+            
+            if options.create:
+                self._bd.create_files(options.create)
+
+        except AppException, e:
+            self._error(str(e) + "\n")
+            sys.exit(1)
