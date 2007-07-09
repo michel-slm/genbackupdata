@@ -100,6 +100,10 @@ class BackupDataTests(unittest.TestCase):
         self.bd.set_preexisting_data_size(12765)
         self.failUnlessEqual(self.bd.get_relative_data_size(10), 1276)
 
+    def testFindsNoPreExistingFilesWhenDirectoryDoesNotExist(self):
+        self.bd.find_preexisting_files()
+        self.failUnlessEqual(self.bd.get_preexisting_file_count(), 0)
+
 
 if __name__ == "__main__":
     unittest.main()

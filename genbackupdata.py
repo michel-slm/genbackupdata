@@ -104,3 +104,6 @@ class BackupData:
     def get_relative_data_size(self, percent):
         """Return PERCENT percent of pre-existing data"""
         return int(0.01 * percent * self.get_preexisting_data_size())
+
+    def find_preexisting_files(self):
+        """Find all the files that exists in the directory right now"""
