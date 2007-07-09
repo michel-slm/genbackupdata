@@ -119,6 +119,10 @@ class BackupData:
     def find_preexisting_files(self):
         """Find all the files that exists in the directory right now"""
 
+    def _choose_directory(self):
+        """Choose directory in which to create the next file"""
+        return self._dirname
+
     def next_filename(self):
         """Choose the name of the next filename
         

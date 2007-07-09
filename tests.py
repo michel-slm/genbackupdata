@@ -147,6 +147,9 @@ class BackupDataTests(unittest.TestCase):
             self.failUnlessEqual(self.dirname, os.path.dirname(filename))
             self.create(filename, "")
 
+    def testChoosesRootWhenItDoesNotExist(self):
+        self.failUnlessEqual(self.dirname, self.bd._choose_directory())
+
 
 if __name__ == "__main__":
     unittest.main()
