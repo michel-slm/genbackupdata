@@ -428,6 +428,16 @@ class CommandLineParser:
                      metavar="COUNT",
                      help="Rename COUNT files")
 
+        p.add_option("--modify",
+                     action="store",
+                     metavar="SIZE",
+                     help="Grow total data size by SIZE")
+
+        p.add_option("--modify-percentage",
+                     action="store",
+                     metavar="PERCENT",
+                     help="Increase file size by PERCENT")
+
         return p
 
     def parse_size(self, size, base_size=None):
@@ -477,6 +487,9 @@ class CommandLineParser:
         if options.percentage_text_data:
             self._bd.set_text_data_percentage(
                 float(options.percentage_text_data))
+        
+        if options.modify_percentage:
+            self._bd.set_modify_percentage(float(options.modify_percentage))
 
         if options.text_file_size:
             self._bd.set_text_file_size(
@@ -488,6 +501,10 @@ class CommandLineParser:
 
         if options.create:
             options.create = self.parse_size(options.create, 
+                                        self._bd.get_preexisting_data_size())
+
+        if options.modify:
+            options.modify = self.parse_size(options.modify, 
                                         self._bd.get_preexisting_data_size())
 
         if options.delete:

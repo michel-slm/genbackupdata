@@ -464,6 +464,16 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(options.rename, 12765)
 
+    def testHandlesOptionForModify(self):
+        options, args = self.clp.parse(["--modify=12765"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(options.modify, 12765)
+
+    def testHandlesOptionForModifyPercentage(self):
+        options, args = self.clp.parse(["--modify-percentage=4.2"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(self.bd.get_modify_percentage(), 4.2)
+
 
 if __name__ == "__main__":
     unittest.main()
