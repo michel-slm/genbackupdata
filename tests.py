@@ -368,6 +368,9 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(self.bd.get_modify_percentage(),
                              genbackupdata.DEFAULT_MODIFY_PERCENTAGE)
 
+    def testParsesPlainSizeCorrectly(self):
+        self.failUnlessEqual(self.clp.parse_size("12765"), 12765)
+
     def testHandlesOptionForSeed(self):
         args = self.clp.parse(["--seed=12765"])
         self.failUnlessEqual(args, [])

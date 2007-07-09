@@ -408,6 +408,10 @@ class CommandLineParser:
 
         return p
 
+    def parse_size(self, size):
+        """Parse a SIZE argument (absolute, relative, with/without suffix)"""
+        return int(size)
+
     def parse(self, args):
         """Parse command line arguments"""
         options, args = self._parser.parse_args(args)
