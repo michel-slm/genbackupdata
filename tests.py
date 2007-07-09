@@ -70,6 +70,14 @@ class BackupDataTests(unittest.TestCase):
         self.bd.set_binary_file_size(12765)
         self.failUnlessEqual(self.bd.get_binary_file_size(), 12765)
 
+    def testHasCorrectTextDataPercentage(self):
+        self.failUnlessEqual(self.bd.get_text_data_percentage(), 
+                             genbackupdata.DEFAULT_TEXT_DATA_PERCENTAGE)
+
+    def testCorrectlySetsTextDataPercentage(self):
+        self.bd.set_text_data_percentage(42.0)
+        self.failUnlessEqual(self.bd.get_text_data_percentage(), 42.0)
+
 
 if __name__ == "__main__":
     unittest.main()

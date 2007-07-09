@@ -26,9 +26,10 @@ import os
 KiB = 2 ** 10   # A kibibyte
 MiB = 2 ** 20   # A mebibyte
 
-# Default sizes for newly created text and binary files.
+# Defaults for various settings in the BackupData class.
 DEFAULT_TEXT_FILE_SIZE = 10 * KiB
 DEFAULT_BINARY_FILE_SIZE = 10 * MiB
+DEFAULT_TEXT_DATA_PERCENTAGE = 10.0
 
 
 class BackupData:
@@ -39,6 +40,7 @@ class BackupData:
         self._dirname = dirname
         self._text_file_size = DEFAULT_TEXT_FILE_SIZE
         self._binary_file_size = DEFAULT_BINARY_FILE_SIZE
+        self._text_data_percentage = DEFAULT_TEXT_DATA_PERCENTAGE
         
     def create_directory(self):
         """Create the backup data directory, if it doesn't exist already"""
@@ -60,3 +62,11 @@ class BackupData:
     def set_binary_file_size(self, size):
         """Set size of newly created binary files"""
         self._binary_file_size = size
+
+    def get_text_data_percentage(self):
+        """Return percentage of text data of new data that gets created"""
+        return self._text_data_percentage
+
+    def set_text_data_percentage(self, percent):
+        """Set percentage of text data of new data that gets created"""
+        self._text_data_percentage = percent
