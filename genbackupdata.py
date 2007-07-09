@@ -131,5 +131,9 @@ class BackupData:
         but it is probably a bad idea for external code to rely on this.
         
         """
-        self._filename_counter += 1
-        return os.path.join(self._dirname, "file%d" % self._filename_counter)
+        while True:
+            filename = os.path.join(self._dirname, 
+                                    "file%d" % self._filename_counter)
+            if not os.path.exists(filename):
+                return filename
+            self._filename_counter += 1

@@ -32,8 +32,15 @@ class BackupDataTests(unittest.TestCase):
     dirname = "tests.dir"
 
     def remove_dir(self):
+        """Remove a directory, if it exists"""
         if os.path.exists(self.dirname):
             shutil.rmtree(self.dirname)
+
+    def create(self, filename, contents):
+        """Create a new file with the desired contents"""
+        f = file(filename, "w")
+        f.write(contents)
+        f.close()
 
     def setUp(self):
         self.remove_dir()
@@ -118,7 +125,20 @@ class BackupDataTests(unittest.TestCase):
 
     def testChoosesFirstFilenameCorrectly(self):
         filename = self.bd.next_filename()
-        self.failUnlessEqual(filename, os.path.join(self.dirname, "file1"))
+        self.failUnlessEqual(filename, os.path.join(self.dirname, "file0"))
+
+    def testChoosesFirstFilenameCorrectlyTwice(self):
+        filename1 = self.bd.next_filename()
+        filename2 = self.bd.next_filename()
+        self.failUnlessEqual(filename1, filename2)
+
+    def testChoosesFilenameCorrectlyWhenFirstOneExistsAlready(self):
+        self.bd.create_directory()
+        filename1 = self.bd.next_filename()
+        self.create(filename1, "")
+        filename2 = self.bd.next_filename()
+        self.failIfEqual(filename1, filename2)
+        self.failUnlessEqual(filename2, os.path.join(self.dirname, "file1"))
 
 
 if __name__ == "__main__":
