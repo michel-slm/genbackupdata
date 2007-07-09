@@ -373,6 +373,11 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_seed(), 12765)
 
+    def testHandlesOptionForMaxCount(self):
+        args = self.clp.parse(["--max-count=12765"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(self.bd.get_max_files_per_directory(), 12765)
+
 
 if __name__ == "__main__":
     unittest.main()

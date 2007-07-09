@@ -387,8 +387,14 @@ class CommandLineParser:
         """Create the OptionParser we need"""
         
         p = optparse.OptionParser()
+
         p.add_option("--seed",
                      help="Set pseudo-random number generator seed to SEED")
+
+        p.add_option("--max-count",
+                     action="store",
+                     metavar="COUNT",
+                     help="Allow at most COUNT files per directory")
 
         return p
 
@@ -398,5 +404,8 @@ class CommandLineParser:
         
         if options.seed:
             self._bd.set_seed(int(options.seed))
+        
+        if options.max_count:
+            self._bd.set_max_files_per_directory(int(options.max_count))
 
         return args
