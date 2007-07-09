@@ -383,6 +383,11 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_text_data_percentage(), 4.2)
 
+    def testHandlesOptionForTextFileSize(self):
+        args = self.clp.parse(["--text-file-size=12765"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(self.bd.get_text_file_size(), 12765)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -401,6 +401,11 @@ class CommandLineParser:
                      metavar="PERCENT",
                      help="Make PERCENT of new data textual, not binary")
 
+        p.add_option("--text-file-size",
+                     action="store",
+                     metavar="SIZE",
+                     help="Make new text files be of size SIZE")
+
         return p
 
     def parse(self, args):
@@ -416,5 +421,8 @@ class CommandLineParser:
         if options.percentage_text_data:
             self._bd.set_text_data_percentage(
                 float(options.percentage_text_data))
+
+        if options.text_file_size:
+            self._bd.set_text_file_size(int(options.text_file_size))
 
         return args
