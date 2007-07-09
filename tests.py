@@ -495,6 +495,12 @@ class ApplicationTests(unittest.TestCase):
     def tearDown(self):
         self.remove_dir()
 
+    def file_count(self):
+        count = 0
+        for root, dirs, filenames in os.walk(self.dirname):
+            count += len(filenames)
+        return count
+
     def data_size(self):
         size = 0
         for root, dirs, filenames in os.walk(self.dirname):
@@ -522,6 +528,13 @@ class ApplicationTests(unittest.TestCase):
         self.apprun(["-c10k", self.dirname])
         self.apprun(["-c10k", self.dirname])
         self.failUnlessEqual(self.data_size(), 20 * genbackupdata.KiB)
+
+    def testModifiesSecondGenerationCorrectly(self):
+        self.apprun(["-c10k", self.dirname])
+        count = self.file_count()
+        self.apprun(["-m1k", self.dirname])
+        self.failUnlessEqual(self.data_size(), 11 * genbackupdata.KiB)
+        self.failUnlessEqual(self.file_count(), count)
 
 
 if __name__ == "__main__":

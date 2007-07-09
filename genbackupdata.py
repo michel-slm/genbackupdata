@@ -570,6 +570,9 @@ class Application:
 
             self._bd.set_directory(args[0])
             
+            if options.modify:
+                self._bd.modify_files(options.modify)
+            
             if options.create:
                 self._bd.create_files(options.create)
 
