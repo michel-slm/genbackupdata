@@ -242,10 +242,17 @@ class BackupData:
             bytes.append(chr(self._prng.randint(0, 255)))
         return "".join(bytes)
 
+    def create_subdirectories(self, filename):
+        """Create the sub-directories that are needed to create filename"""
+        subdir = os.path.dirname(filename)
+        if not os.path.exists(subdir):
+            os.makedirs(subdir)
+
     def create_text_file(self, size):
         """Create a new text file of the desired size"""
-        self.create_directory()
-        f = file(self.next_filename(), "w")
+        filename = self.next_filename()
+        self.create_subdirectories(filename)
+        f = file(filename, "w")
         f.write(self.generate_text_data(size))
         f.close()
 
@@ -259,8 +266,9 @@ class BackupData:
 
     def create_binary_file(self, size):
         """Create a new binary file of the desired size"""
-        self.create_directory()
-        f = file(self.next_filename(), "w")
+        filename = self.next_filename()
+        self.create_subdirectories(filename)
+        f = file(filename, "w")
         # We write the data in chunks, so as not to keep the entire file
         # contents in memory at a time. Since the size may be very large,
         # we might otherwise run out of swap.
@@ -286,3 +294,17 @@ class BackupData:
                                      self.create_text_file)
         self._create_files_of_a_kind(bin_size, self.get_binary_file_size(),
                                      self.create_binary_file)
+
+    def delete_files(self, count):
+        """Delete COUNT files"""
+        if os.path.exists(self._dirname):
+            files = []
+            for root, dirs, filenames in os.walk(self._dirname):
+                for filename in filenames:
+                    files.append(os.path.join(root, filename))
+
+            if len(files) > count:
+                self.init_prng()
+                files = self._prng.sample(files, count)
+            for file in files:
+                os.remove(file)

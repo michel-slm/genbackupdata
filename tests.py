@@ -247,6 +247,11 @@ class BackupDataTests(unittest.TestCase):
         data = zlib.compress(self.bd.generate_binary_data(n))
         self.failUnless(len(data) > 0.95* n)
 
+    def testCreatesSubdirectoriesCorrectly(self):
+        filename = os.path.join(self.dirname, "subdir", "filename")
+        self.bd.create_subdirectories(filename)
+        self.failUnless(os.path.isdir(os.path.dirname(filename)))
+
     def testCreatesTextFileCorrectly(self):
         size = self.bd.get_text_file_size()
         filename = self.bd.next_filename()
@@ -295,7 +300,20 @@ class BackupDataTests(unittest.TestCase):
             for filename in filenames:
                 pathname = os.path.join(root, filename)
                 self.failIfTextFile(pathname)
-                             
+
+    def testDeletesFilesCorrectly(self):
+        size = 1024
+        self.bd.set_text_file_size(1)
+        self.bd.set_binary_file_size(1)
+        self.bd.create_files(size)
+        self.bd.find_preexisting_files()
+        count = self.bd.get_preexisting_file_count()
+        to_delete = count/3
+        remaining = count - to_delete
+        self.bd.delete_files(to_delete)
+        self.bd.find_preexisting_files()
+        self.failUnlessEqual(self.bd.get_preexisting_file_count(), remaining)
+
 
 if __name__ == "__main__":
     unittest.main()
