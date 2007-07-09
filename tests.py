@@ -302,7 +302,7 @@ class BackupDataTests(unittest.TestCase):
                 self.failIfTextFile(pathname)
 
     def testDeletesFilesCorrectly(self):
-        size = 1024
+        size = 100
         self.bd.set_text_file_size(1)
         self.bd.set_binary_file_size(1)
         self.bd.create_files(size)
