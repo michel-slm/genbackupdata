@@ -64,6 +64,13 @@ class BackupDataTests(unittest.TestCase):
         self.bd.create_directory()
         self.bd.create_directory()
 
+    def testHasCorrectDefaultSeed(self):
+        self.failUnlessEqual(self.bd.get_seed(), genbackupdata.DEFAULT_SEED)
+
+    def testCorrectlySetsSeed(self):
+        self.bd.set_seed(12765)
+        self.failUnlessEqual(self.bd.get_seed(), 12765)
+
     def testHasCorrectDefaultTextFileSize(self):
         self.failUnlessEqual(self.bd.get_text_file_size(), 
                              genbackupdata.DEFAULT_TEXT_FILE_SIZE)

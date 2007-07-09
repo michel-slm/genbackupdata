@@ -27,6 +27,7 @@ KiB = 2 ** 10   # A kibibyte
 MiB = 2 ** 20   # A mebibyte
 
 # Defaults for various settings in the BackupData class.
+DEFAULT_SEED = 0
 DEFAULT_TEXT_FILE_SIZE = 10 * KiB
 DEFAULT_BINARY_FILE_SIZE = 10 * MiB
 DEFAULT_TEXT_DATA_PERCENTAGE = 10.0
@@ -50,6 +51,7 @@ class BackupData:
     
     def __init__(self, dirname):
         self._dirname = dirname
+        self._seed = 0
         self._text_file_size = DEFAULT_TEXT_FILE_SIZE
         self._binary_file_size = DEFAULT_BINARY_FILE_SIZE
         self._text_data_percentage = DEFAULT_TEXT_DATA_PERCENTAGE
@@ -62,6 +64,21 @@ class BackupData:
         """Create the backup data directory, if it doesn't exist already"""
         if not os.path.exists(self._dirname):
             os.mkdir(self._dirname)
+
+    def get_seed(self):
+        """Return the initial seed for the pseudo-random number generator"""
+        return self._seed
+        
+    def set_seed(self, seed):
+        """Set the initial seed for the pseudo-random number generator
+        
+        The seed will be used when the generator is first initialized.
+        It is initialized implicitly as soon as something in this class
+        needs randomness.
+        
+        """
+        
+        self._seed = seed
 
     def get_text_file_size(self):
         """Return size of newly created text files"""
