@@ -323,6 +323,24 @@ class BackupDataTests(unittest.TestCase):
         self.failIf(os.path.exists(filename))
         self.failUnless(os.path.exists(new_filename))
 
+    def testHasCorrectDefaultModifyPercentage(self):
+        self.failUnlessEqual(self.bd.get_modify_percentage(),
+                             genbackupdata.DEFAULT_MODIFY_PERCENTAGE)
+
+    def testCorrectlySetsModifyPercentage(self):
+        self.bd.set_modify_percentage(42.0)
+        self.failUnlessEqual(self.bd.get_modify_percentage(), 42.0)
+
+    def testModifyFiles(self):
+        size = 100
+        self.bd.create_directory()
+        filename = self.bd.next_filename()
+        orig_data = "x" * size
+        self.create(filename, orig_data)
+        self.bd.set_text_data_percentage(100)
+        self.bd.modify_files(size)
+        self.failUnlessEqual(len(self.read_file(filename)), 2 * size)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -34,6 +34,7 @@ DEFAULT_TEXT_FILE_SIZE = 10 * KiB
 DEFAULT_BINARY_FILE_SIZE = 10 * MiB
 DEFAULT_TEXT_DATA_PERCENTAGE = 10.0
 DEFAULT_MAX_FILES_PER_DIRECTORY = 256
+DEFAULT_MODIFY_PERCENTAGE = 10
 
 # Random filler text for generating text data.
 LOREM_IPSUM = """
@@ -60,6 +61,7 @@ class BackupData:
         self._binary_file_size = DEFAULT_BINARY_FILE_SIZE
         self._text_data_percentage = DEFAULT_TEXT_DATA_PERCENTAGE
         self._max_files_per_directory = DEFAULT_MAX_FILES_PER_DIRECTORY
+        self._modify_percentage = DEFAULT_MODIFY_PERCENTAGE
         self._preexisting_file_count = 0
         self._preexisting_data_size = 0
         self._filename_counter = 0
@@ -322,3 +324,43 @@ class BackupData:
                 files = self._prng.sample(files, count)
             for file in files:
                 os.rename(file, self.next_filename())
+
+    def get_modify_percentage(self):
+        """Return how many percent to grow each file with modify_files()"""
+        return self._modify_percentage
+        
+    def set_modify_percentage(self, percent):
+        """Set how many percent to grow each file with modify_files()"""
+        self._modify_percentage = percent
+
+    def append_data(self, filename, data):
+        """Append data to a file"""
+        f = file(filename, "a")
+        f.write(data)
+        f.close()
+
+    def modify_files(self, size):
+        """Modify existing files by appending to them
+        
+        SIZE gives the total amount of new data for all files.
+        Files are chosen at random, and new data is appended to them.
+        The amount appended to each file is set by
+        set_modify_percentage. The data is split between text and
+        binary data according to set_text_data_percentage.
+        
+        """
+        
+        if os.path.exists(self._dirname):
+            files = []
+            for root, dirs, filenames in os.walk(self._dirname):
+                for filename in filenames:
+                    files.append(os.path.join(root, filename))
+
+            self.init_prng()
+            while size > 0:
+                file = self._prng.choice(files)
+                this_size = os.path.getsize(file)
+                amount = int(0.01 * self._modify_percentage * this_size)
+                amount = min(amount, size)
+                self.append_data(file, self.generate_text_data(amount))
+                size -= amount
