@@ -408,6 +408,11 @@ class CommandLineParser:
                      metavar="SIZE",
                      help="Make new text files be of size SIZE")
 
+        p.add_option("--binary-file-size",
+                     action="store",
+                     metavar="SIZE",
+                     help="Make new binary files be of size SIZE")
+
         return p
 
     def parse_size(self, size, base_size=None):
@@ -444,5 +449,9 @@ class CommandLineParser:
         if options.text_file_size:
             self._bd.set_text_file_size(
                 self.parse_size(options.text_file_size))
+
+        if options.binary_file_size:
+            self._bd.set_binary_file_size(
+                self.parse_size(options.binary_file_size))
 
         return args

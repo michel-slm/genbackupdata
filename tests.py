@@ -412,6 +412,12 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_text_file_size(), genbackupdata.TiB)
 
+    def testHandlesOptionForBinaryFileSizeWithSuffix(self):
+        args = self.clp.parse(["--binary-file-size=1t"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(self.bd.get_binary_file_size(), 
+                             genbackupdata.TiB)
+
 
 if __name__ == "__main__":
     unittest.main()
