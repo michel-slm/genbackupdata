@@ -20,7 +20,6 @@
 """Unit tests for genbackupdata.py"""
 
 
-import math
 import os
 import shutil
 import unittest
@@ -263,12 +262,39 @@ class BackupDataTests(unittest.TestCase):
         self.failUnless(os.path.isfile(filename))
         self.failUnlessEqual(os.path.getsize(filename), size)
 
-    def testComputesNumberOfNewTextFilesCorrectly(self):
-        # We want one full size text file, plus one with one character.
-        n = self.bd.get_text_file_size()
-        pc = self.bd.get_text_data_percentage()
-        size = int(math.ceil((n+1) / (0.01 * pc)))
-        self.failUnlessEqual(self.bd.get_number_of_new_text_files(size), 2)
+    def failUnlessTextFile(self, filename):
+        data = self.read_file(filename)
+        self.failUnlessEqual(data, self.bd.generate_text_data(len(data)))
+
+    def testCreatesTextFilesOnlyCorrectly(self):
+        self.bd.set_text_data_percentage(100)
+        count = 10
+        size = count * self.bd.get_text_file_size()
+        self.bd.create_files(size)
+        self.bd.find_preexisting_files()
+        self.failUnlessEqual(self.bd.get_preexisting_file_count(), count)
+        self.failUnlessEqual(self.bd.get_preexisting_data_size(), size)
+        for root, dirs, filenames in os.walk(self.dirname):
+            for filename in filenames:
+                pathname = os.path.join(root, filename)
+                self.failUnlessTextFile(pathname)
+
+    def failIfTextFile(self, filename):
+        data = self.read_file(filename)
+        self.failIfEqual(data, self.bd.generate_text_data(len(data)))
+
+    def testCreatesNoTextFilesCorrectly(self):
+        self.bd.set_text_data_percentage(0)
+        count = 10
+        size = count * self.bd.get_text_file_size()
+        self.bd.create_files(size)
+        self.bd.find_preexisting_files()
+        self.failUnlessEqual(self.bd.get_preexisting_file_count(), 1)
+        self.failUnlessEqual(self.bd.get_preexisting_data_size(), size)
+        for root, dirs, filenames in os.walk(self.dirname):
+            for filename in filenames:
+                pathname = os.path.join(root, filename)
+                self.failIfTextFile(pathname)
                              
 
 if __name__ == "__main__":

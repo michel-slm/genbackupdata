@@ -270,10 +270,19 @@ class BackupData:
         f.write(self.generate_binary_data(size))
         f.close()
 
-    def get_number_of_new_text_files(self, total_new_data):
-        """Return how many new text files to create, given total new data"""
-        text_data = int(self._text_data_percentage * 0.01 * total_new_data)
-        text_files = text_data / self._text_file_size
-        if text_data % self._text_file_size > 0:
-            text_files += 1
-        return text_files
+    def _create_files_of_a_kind(self, size, file_size, create_one):
+        """Create files with create_one"""
+        while size > 0:
+            this_size = min(size, file_size)
+            create_one(this_size)
+            size -= this_size
+
+    def create_files(self, size):
+        """Create new files, totalling SIZE bytes in size"""
+        text_size = int(0.01 * self._text_data_percentage * size)
+        bin_size = size - text_size
+
+        self._create_files_of_a_kind(text_size, self.get_text_file_size(),
+                                     self.create_text_file)
+        self._create_files_of_a_kind(bin_size, self.get_binary_file_size(),
+                                     self.create_binary_file)
