@@ -96,3 +96,7 @@ class BackupData:
         
         """
         self._preexisting_data_size = size
+
+    def get_relative_file_count(self, percent):
+        """Return PERCENT percent of pre-existing file count"""
+        return int(0.01 * percent * self.get_preexisting_file_count())
