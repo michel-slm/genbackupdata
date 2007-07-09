@@ -81,6 +81,9 @@ class BackupDataTests(unittest.TestCase):
     def testSetsPreExistingFileCountToZeroByDefault(self):
         self.failUnlessEqual(self.bd.get_preexisting_file_count(), 0)
 
+    def testSetsPreExistingDataSizeToZeroByDefault(self):
+        self.failUnlessEqual(self.bd.get_preexisting_data_size(), 0)
+
 
 if __name__ == "__main__":
     unittest.main()
