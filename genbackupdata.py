@@ -77,6 +77,14 @@ class BackupData:
         """Return count of files that existed in directory in the beginning"""
         return self._preexisting_file_count
 
+    def set_preexisting_file_count(self, count):
+        """Set count of files that existed in directory in the beginning
+        
+        This is useful only for unit tests.
+        
+        """
+        self._preexisting_file_count = count
+
     def get_preexisting_data_size(self):
         """Return size of data that existed in directory in the beginning"""
         return self._preexisting_data_size
