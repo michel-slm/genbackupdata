@@ -183,6 +183,16 @@ class BackupDataTests(unittest.TestCase):
         self.failUnlessEqual(self.bd._choose_directory(),
                              os.path.join(self.dirname, "dir1"))
 
+    def testGeneratesSmallAmountOfTextDataCorrectly(self):
+        n = 128
+        self.failUnlessEqual(self.bd.generate_text_data(n),
+                             genbackupdata.LOREM_IPSUM[:n])
+
+    def testGeneratesLargeAmountOfTextDataCorrectly(self):
+        n = len(genbackupdata.LOREM_IPSUM)
+        self.failUnlessEqual(self.bd.generate_text_data(n * 2),
+                             genbackupdata.LOREM_IPSUM * 2)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -32,6 +32,17 @@ DEFAULT_BINARY_FILE_SIZE = 10 * MiB
 DEFAULT_TEXT_DATA_PERCENTAGE = 10.0
 DEFAULT_MAX_FILES_PER_DIRECTORY = 256
 
+# Random filler text for generating text data.
+LOREM_IPSUM = """
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+mollit anim id est laborum.
+"""
+
 
 class BackupData:
 
@@ -166,3 +177,12 @@ class BackupData:
             if not os.path.exists(filename):
                 return filename
             self._filename_counter += 1
+
+    def generate_text_data(self, size):
+        """Generate SIZE characters of text data"""
+        if size <= len(LOREM_IPSUM):
+            return LOREM_IPSUM[:size]
+        else:
+            full = size / len(LOREM_IPSUM)
+            rest = size % len(LOREM_IPSUM)
+            return "".join(([LOREM_IPSUM] * full) + [LOREM_IPSUM[:rest]])
