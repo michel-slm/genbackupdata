@@ -129,6 +129,17 @@ class BackupDataTests(unittest.TestCase):
         self.bd.set_preexisting_data_size(12765)
         self.failUnlessEqual(self.bd.get_preexisting_data_size(), 12765)
 
+    def testFindsPreExistingFilesAndDAtaCorrectly(self):
+        file_count = 10
+        file_size = self.bd.get_text_file_size()
+        data = self.bd.generate_text_data(file_size)
+        for i in range(file_count):
+            self.create(self.bd.next_filename(), data)
+        self.bd.find_preexisting_files()
+        self.failUnlessEqual(self.bd.get_preexisting_file_count(), file_count)
+        self.failUnlessEqual(self.bd.get_preexisting_data_size(), 
+                             file_count * file_size)
+
     def testComputesRelativeFileCountCorrectly(self):
         self.bd.set_preexisting_file_count(12765)
         self.failUnlessEqual(self.bd.get_relative_file_count(10), 1276)

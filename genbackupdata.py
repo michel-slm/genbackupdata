@@ -165,6 +165,15 @@ class BackupData:
 
     def find_preexisting_files(self):
         """Find all the files that exists in the directory right now"""
+        count = 0
+        size = 0
+        if os.path.exists(self._dirname):
+            for root, dirs, filenames in os.walk(self._dirname):
+                count += len(filenames)
+                for filename in filenames:
+                    size += os.path.getsize(os.path.join(root, filename))
+        self.set_preexisting_file_count(count)
+        self.set_preexisting_data_size(size)
 
     def _files_in_directory(self, dirname):
         """Return number of non-directory files in a directory
