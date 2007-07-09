@@ -573,6 +573,9 @@ class Application:
             if options.delete:
                 self._bd.delete_files(options.delete)
             
+            if options.rename:
+                self._bd.rename_files(options.rename)
+            
             if options.modify:
                 self._bd.modify_files(options.modify)
             

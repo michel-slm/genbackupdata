@@ -508,6 +508,13 @@ class ApplicationTests(unittest.TestCase):
                 size += os.path.getsize(os.path.join(root, filename))
         return size
 
+    def file_list(self):
+        files = []
+        for root, dirs, filenames in os.walk(self.dirname):
+            for filename in filenames:
+                files.append(os.path.join(root, filename))
+        return files
+
     def nop(self, *args):
         pass
 
@@ -536,11 +543,19 @@ class ApplicationTests(unittest.TestCase):
         self.failUnlessEqual(self.data_size(), 11 * genbackupdata.KiB)
         self.failUnlessEqual(self.file_count(), count)
 
-    def testDeletesFilesForSecongGenerationCorrectly(self):
+    def testDeletesFilesForSecondGenerationCorrectly(self):
         self.apprun(["-c10k", self.dirname])
         count = self.file_count()
         self.apprun(["-d2", self.dirname])
         self.failUnlessEqual(self.file_count(), count - 2)
+
+    def testRenamesFilesForSecondGenerationCorrectly(self):
+        self.apprun(["-c10k", self.dirname])
+        files1 = self.file_list()
+        self.apprun(["-r2", self.dirname])
+        files2 = self.file_list()
+        self.failIfEqual(sorted(files1), sorted(files2))
+        self.failUnlessEqual(len(files1), len(files2))
 
 
 if __name__ == "__main__":
