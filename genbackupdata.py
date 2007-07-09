@@ -269,3 +269,11 @@ class BackupData:
             size -= self._chunk_size
         f.write(self.generate_binary_data(size))
         f.close()
+
+    def get_number_of_new_text_files(self, total_new_data):
+        """Return how many new text files to create, given total new data"""
+        text_data = int(self._text_data_percentage * 0.01 * total_new_data)
+        text_files = text_data / self._text_file_size
+        if text_data % self._text_file_size > 0:
+            text_files += 1
+        return text_files

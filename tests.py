@@ -20,6 +20,7 @@
 """Unit tests for genbackupdata.py"""
 
 
+import math
 import os
 import shutil
 import unittest
@@ -262,6 +263,13 @@ class BackupDataTests(unittest.TestCase):
         self.failUnless(os.path.isfile(filename))
         self.failUnlessEqual(os.path.getsize(filename), size)
 
+    def testComputesNumberOfNewTextFilesCorrectly(self):
+        # We want one full size text file, plus one with one character.
+        n = self.bd.get_text_file_size()
+        pc = self.bd.get_text_data_percentage()
+        size = int(math.ceil((n+1) / (0.01 * pc)))
+        self.failUnlessEqual(self.bd.get_number_of_new_text_files(size), 2)
+                             
 
 if __name__ == "__main__":
     unittest.main()
