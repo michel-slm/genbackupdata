@@ -515,13 +515,13 @@ class ApplicationTests(unittest.TestCase):
         app.run()
 
     def testCreatesFirstGenerationCorrectly(self):
-        self.apprun(["-c100k", self.dirname])
-        self.failUnlessEqual(self.data_size(), 100 * genbackupdata.KiB)
+        self.apprun(["-c10k", self.dirname])
+        self.failUnlessEqual(self.data_size(), 10 * genbackupdata.KiB)
 
     def testIncreasesSecondGenerationCorrectly(self):
-        self.apprun(["-c100k", self.dirname])
-        self.apprun(["-c100k", self.dirname])
-        self.failUnlessEqual(self.data_size(), 200 * genbackupdata.KiB)
+        self.apprun(["-c10k", self.dirname])
+        self.apprun(["-c10k", self.dirname])
+        self.failUnlessEqual(self.data_size(), 20 * genbackupdata.KiB)
 
 
 if __name__ == "__main__":
