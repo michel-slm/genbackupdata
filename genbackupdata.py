@@ -41,6 +41,7 @@ class BackupData:
         self._text_file_size = DEFAULT_TEXT_FILE_SIZE
         self._binary_file_size = DEFAULT_BINARY_FILE_SIZE
         self._text_data_percentage = DEFAULT_TEXT_DATA_PERCENTAGE
+        self._preexisting_file_count = 0
         
     def create_directory(self):
         """Create the backup data directory, if it doesn't exist already"""
@@ -70,3 +71,7 @@ class BackupData:
     def set_text_data_percentage(self, percent):
         """Set percentage of text data of new data that gets created"""
         self._text_data_percentage = percent
+
+    def get_preexisting_file_count(self):
+        """Return count of files that existed in directory in the beginning"""
+        return self._preexisting_file_count

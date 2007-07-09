@@ -78,6 +78,9 @@ class BackupDataTests(unittest.TestCase):
         self.bd.set_text_data_percentage(42.0)
         self.failUnlessEqual(self.bd.get_text_data_percentage(), 42.0)
 
+    def testSetsPreExistingFileCountToZeroByDefault(self):
+        self.failUnlessEqual(self.bd.get_preexisting_file_count(), 0)
+
 
 if __name__ == "__main__":
     unittest.main()
