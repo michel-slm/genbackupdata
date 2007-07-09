@@ -88,3 +88,11 @@ class BackupData:
     def get_preexisting_data_size(self):
         """Return size of data that existed in directory in the beginning"""
         return self._preexisting_data_size
+
+    def set_preexisting_data_size(self, size):
+        """Set size of data that existed in directory in the beginning
+        
+        This is useful only for unit tests.
+        
+        """
+        self._preexisting_data_size = size
