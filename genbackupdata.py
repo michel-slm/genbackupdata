@@ -23,14 +23,28 @@
 import os
 
 
+KiB = 2 ** 10   # A kibibyte
+
+DEFAULT_TEXT_FILE_SIZE = 10 * KiB
+
+
 class BackupData:
 
     """This class represents the directory with backup data"""
     
     def __init__(self, dirname):
         self._dirname = dirname
+        self._text_file_size = DEFAULT_TEXT_FILE_SIZE
         
     def create_directory(self):
         """Create the backup data directory, if it doesn't exist already"""
         if not os.path.exists(self._dirname):
             os.mkdir(self._dirname)
+
+    def get_text_file_size(self):
+        """Return size of newly created text files"""
+        return self._text_file_size
+
+    def set_text_file_size(self, size):
+        """Set size of newly created text files"""
+        self._text_file_size = size

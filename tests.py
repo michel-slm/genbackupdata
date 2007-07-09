@@ -54,6 +54,14 @@ class BackupDataTests(unittest.TestCase):
         self.bd.create_directory()
         self.bd.create_directory()
 
+    def testHasCorrectDefaultTextFileSize(self):
+        self.failUnlessEqual(self.bd.get_text_file_size(), 
+                             genbackupdata.DEFAULT_TEXT_FILE_SIZE)
+
+    def testCorrectlySetsTextFileSize(self):
+        self.bd.set_text_file_size(12765)
+        self.failUnlessEqual(self.bd.get_text_file_size(), 12765)
+
 
 if __name__ == "__main__":
     unittest.main()
