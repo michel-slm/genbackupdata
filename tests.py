@@ -140,6 +140,13 @@ class BackupDataTests(unittest.TestCase):
         self.failIfEqual(filename1, filename2)
         self.failUnlessEqual(filename2, os.path.join(self.dirname, "file1"))
 
+    def testChoosesFilenamesInRootUntilMaxFileLimitIsReached(self):
+        self.bd.create_directory()
+        for i in range(self.bd.get_max_files_per_directory()):
+            filename = self.bd.next_filename()
+            self.failUnlessEqual(self.dirname, os.path.dirname(filename))
+            self.create(filename, "")
+
 
 if __name__ == "__main__":
     unittest.main()
