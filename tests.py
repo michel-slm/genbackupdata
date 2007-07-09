@@ -193,6 +193,10 @@ class BackupDataTests(unittest.TestCase):
         self.failUnlessEqual(self.bd.generate_text_data(n * 2),
                              genbackupdata.LOREM_IPSUM * 2)
 
+    def testGeneratesBinaryData(self):
+        n = 128
+        self.failUnlessEqual(len(self.bd.generate_binary_data(n)), n)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -186,3 +186,7 @@ class BackupData:
             full = size / len(LOREM_IPSUM)
             rest = size % len(LOREM_IPSUM)
             return "".join(([LOREM_IPSUM] * full) + [LOREM_IPSUM[:rest]])
+
+    def generate_binary_data(self, size):
+        """Generate SIZE bytes of more or less random binary junk"""
+        return "x" * size
