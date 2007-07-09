@@ -150,6 +150,10 @@ class BackupDataTests(unittest.TestCase):
     def testChoosesRootWhenItDoesNotExist(self):
         self.failUnlessEqual(self.dirname, self.bd._choose_directory())
 
+    def testChoosesRootWhenItIsEmpty(self):
+        self.bd.create_directory()
+        self.failUnlessEqual(self.dirname, self.bd._choose_directory())
+
 
 if __name__ == "__main__":
     unittest.main()
