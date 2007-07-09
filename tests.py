@@ -388,35 +388,40 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(self.clp.parse_size("10%"), 0)
 
     def testHandlesOptionForSeed(self):
-        args = self.clp.parse(["--seed=12765"])
+        optons, args = self.clp.parse(["--seed=12765"])
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_seed(), 12765)
 
     def testHandlesOptionForMaxCount(self):
-        args = self.clp.parse(["--max-count=12765"])
+        options, args = self.clp.parse(["--max-count=12765"])
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_max_files_per_directory(), 12765)
 
     def testHandlesOptionForPercentageTextData(self):
-        args = self.clp.parse(["--percentage-text-data=4.2"])
+        options, args = self.clp.parse(["--percentage-text-data=4.2"])
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_text_data_percentage(), 4.2)
 
     def testHandlesOptionForTextFileSize(self):
-        args = self.clp.parse(["--text-file-size=12765"])
+        options, args = self.clp.parse(["--text-file-size=12765"])
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_text_file_size(), 12765)
 
     def testHandlesOptionForTextFileSizeWithSuffix(self):
-        args = self.clp.parse(["--text-file-size=1t"])
+        options, args = self.clp.parse(["--text-file-size=1t"])
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_text_file_size(), genbackupdata.TiB)
 
     def testHandlesOptionForBinaryFileSizeWithSuffix(self):
-        args = self.clp.parse(["--binary-file-size=1t"])
+        options, args = self.clp.parse(["--binary-file-size=1t"])
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_binary_file_size(), 
                              genbackupdata.TiB)
+
+    def testHandlesOptionForCreate(self):
+        options, args = self.clp.parse(["--create=1t"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(options.create, genbackupdata.TiB)
 
 
 if __name__ == "__main__":

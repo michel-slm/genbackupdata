@@ -413,6 +413,11 @@ class CommandLineParser:
                      metavar="SIZE",
                      help="Make new binary files be of size SIZE")
 
+        p.add_option("--create",
+                     action="store",
+                     metavar="SIZE",
+                     help="Create SIZE amount of new files")
+
         return p
 
     def parse_size(self, size, base_size=None):
@@ -454,4 +459,8 @@ class CommandLineParser:
             self._bd.set_binary_file_size(
                 self.parse_size(options.binary_file_size))
 
-        return args
+        if options.create:
+            options.create = self.parse_size(options.create, 
+                                        self._bd.get_preexisting_data_size())
+
+        return options, args
