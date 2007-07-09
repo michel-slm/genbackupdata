@@ -505,7 +505,7 @@ class ApplicationTests(unittest.TestCase):
     def nop(self, *args):
         pass
 
-    def testRaisesExceptionWithoutDirectory(self):
+    def testTerminatesWithoutDirectory(self):
         app = genbackupdata.Application([])
         app.set_error_writer(self.nop)
         self.failUnlessRaises(SystemExit, app.run)
