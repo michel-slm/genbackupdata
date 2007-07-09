@@ -260,7 +260,7 @@ class BackupData:
         self.init_prng()
         bytes = []
         for i in range(size):
-            bytes.append(chr(self._prng.randint(0, 255)))
+            bytes.append(chr(self._prng.getrandbits(8)))
         return "".join(bytes)
 
     def create_subdirectories(self, filename):
