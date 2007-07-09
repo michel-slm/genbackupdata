@@ -423,6 +423,12 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(options.create, genbackupdata.TiB)
 
+    def testHandlesOptionForCreateWithRelativeSize(self):
+        self.bd.set_preexisting_data_size(12765)
+        options, args = self.clp.parse(["--create=10%"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(options.create, 1276)
+
 
 if __name__ == "__main__":
     unittest.main()
