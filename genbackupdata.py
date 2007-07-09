@@ -119,9 +119,33 @@ class BackupData:
     def find_preexisting_files(self):
         """Find all the files that exists in the directory right now"""
 
+    def _files_in_directory(self, dirname):
+        """Return number of non-directory files in a directory
+        
+        This returns 0 if the directory doesn't exist, or there's another
+        error with os.listdir or otherwise.
+        
+        """
+        
+        try:
+            names = os.listdir(dirname)
+            names = [os.path.join(dirname, x) for x in names]
+            files = [x for x in names if not os.path.isdir(x)]
+            return len(files)
+        except os.error:
+            return 0
+
     def _choose_directory(self):
         """Choose directory in which to create the next file"""
-        return self._dirname
+        max = self.get_max_files_per_directory()
+        if self._files_in_directory(self._dirname) < max:
+            return self._dirname
+        i = 0
+        while True:
+            dirname = os.path.join(self._dirname, "dir%d" % i)
+            if self._files_in_directory(dirname) < max:
+                return dirname
+            i += 1
 
     def next_filename(self):
         """Choose the name of the next filename
@@ -135,8 +159,9 @@ class BackupData:
         but it is probably a bad idea for external code to rely on this.
         
         """
+        dirname = self._choose_directory()
         while True:
-            filename = os.path.join(self._dirname, 
+            filename = os.path.join(dirname, 
                                     "file%d" % self._filename_counter)
             if not os.path.exists(filename):
                 return filename

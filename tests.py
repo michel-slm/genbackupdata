@@ -38,6 +38,9 @@ class BackupDataTests(unittest.TestCase):
 
     def create(self, filename, contents):
         """Create a new file with the desired contents"""
+        dirname = os.path.dirname(filename)
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
         f = file(filename, "w")
         f.write(contents)
         f.close()
@@ -159,6 +162,29 @@ class BackupDataTests(unittest.TestCase):
         for i in range(self.bd.get_max_files_per_directory()):
             self.failUnlessEqual(self.bd._choose_directory(), self.dirname)
             self.create(self.bd.next_filename(), "")
+
+    def testChoosesSubdirectoryWhenMaxFileLimitIsReached(self):
+        self.bd.create_directory()
+        for i in range(self.bd.get_max_files_per_directory()):
+            self.create(self.bd.next_filename(), "")
+        self.failUnlessEqual(self.bd._choose_directory(),
+                             os.path.join(self.dirname, "dir0"))
+
+    def testChoosesFirstSubdirectoryUntilMaxFileLimitIsReached(self):
+        self.bd.create_directory()
+        for i in range(self.bd.get_max_files_per_directory()):
+            self.create(self.bd.next_filename(), "")
+        for i in range(self.bd.get_max_files_per_directory()):
+            self.failUnlessEqual(self.bd._choose_directory(),
+                                 os.path.join(self.dirname, "dir0"))
+            self.create(self.bd.next_filename(), "")
+
+    def testChoosesSecondSubdirectoryWhenFirstOneFillsUp(self):
+        self.bd.create_directory()
+        for i in range(2 * self.bd.get_max_files_per_directory()):
+            self.create(self.bd.next_filename(), "")
+        self.failUnlessEqual(self.bd._choose_directory(),
+                             os.path.join(self.dirname, "dir1"))
 
 
 if __name__ == "__main__":
