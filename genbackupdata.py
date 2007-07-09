@@ -76,10 +76,12 @@ class BackupData:
         
         The seed will be used when the generator is first initialized.
         It is initialized implicitly as soon as something in this class
-        needs randomness.
+        needs randomness. Setting the seed after the generator has been
+        initialized causes an assertion failure.
         
         """
-        
+
+        assert self.get_prng() is None
         self._seed = seed
 
     def get_prng(self):
@@ -93,9 +95,9 @@ class BackupData:
         
     def init_prng(self):
         """Initialize the psuedo-random number generator (using seed)"""
-        assert self._prng is None
-        self._prng = random.Random()
-        self._prng.seed(self._seed)
+        if self._prng is None:
+            self._prng = random.Random()
+            self._prng.seed(self._seed)
 
     def get_text_file_size(self):
         """Return size of newly created text files"""
@@ -223,4 +225,8 @@ class BackupData:
 
     def generate_binary_data(self, size):
         """Generate SIZE bytes of more or less random binary junk"""
-        return "x" * size
+        self.init_prng()
+        bytes = []
+        for i in range(size):
+            bytes.append(chr(self._prng.randint(0, 255)))
+        return "".join(bytes)

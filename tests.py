@@ -23,6 +23,7 @@
 import os
 import shutil
 import unittest
+import zlib
 
 import genbackupdata
 
@@ -78,9 +79,9 @@ class BackupDataTests(unittest.TestCase):
         self.bd.init_prng()
         self.failIfEqual(self.bd.get_prng(), None)
 
-    def testFailsIfPRNGGetsCreatedTwice(self):
+    def testFailsIfSeedGetsSetAfterPRNGHasBeenCreatedTwice(self):
         self.bd.init_prng()
-        self.failUnlessRaises(AssertionError, self.bd.init_prng)
+        self.failUnlessRaises(AssertionError, self.bd.set_seed, 12765)
 
     def testHasCorrectDefaultTextFileSize(self):
         self.failUnlessEqual(self.bd.get_text_file_size(), 
@@ -211,9 +212,15 @@ class BackupDataTests(unittest.TestCase):
         self.failUnlessEqual(self.bd.generate_text_data(n * 2),
                              genbackupdata.LOREM_IPSUM * 2)
 
-    def testGeneratesBinaryData(self):
+    def testGeneratesRequestedAmountOfBinaryData(self):
         n = 128
         self.failUnlessEqual(len(self.bd.generate_binary_data(n)), n)
+
+    def testGeneratesBinaryDataWhichDoesNotCompressWell(self):
+        n = 10 * 1024
+        data = zlib.compress(self.bd.generate_binary_data(n))
+        print len(data)
+        self.failUnless(len(data) > 0.95* n)
 
 
 if __name__ == "__main__":
