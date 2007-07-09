@@ -151,12 +151,14 @@ class BackupDataTests(unittest.TestCase):
         self.failUnlessEqual(self.dirname, self.bd._choose_directory())
 
     def testChoosesRootDirectoryUntilMaxFileLimitIsReached(self):
+        self.bd.set_max_files_per_directory(10) # For speed
         self.bd.create_directory()
         for i in range(self.bd.get_max_files_per_directory()):
             self.failUnlessEqual(self.bd._choose_directory(), self.dirname)
             self.create(self.bd.next_filename(), "")
 
     def testChoosesSubdirectoryWhenMaxFileLimitIsReached(self):
+        self.bd.set_max_files_per_directory(10) # For speed
         self.bd.create_directory()
         for i in range(self.bd.get_max_files_per_directory()):
             self.create(self.bd.next_filename(), "")
@@ -164,6 +166,7 @@ class BackupDataTests(unittest.TestCase):
                              os.path.join(self.dirname, "dir0"))
 
     def testChoosesFirstSubdirectoryUntilMaxFileLimitIsReached(self):
+        self.bd.set_max_files_per_directory(10) # For speed
         self.bd.create_directory()
         for i in range(self.bd.get_max_files_per_directory()):
             self.create(self.bd.next_filename(), "")
@@ -173,6 +176,7 @@ class BackupDataTests(unittest.TestCase):
             self.create(self.bd.next_filename(), "")
 
     def testChoosesSecondSubdirectoryWhenFirstOneFillsUp(self):
+        self.bd.set_max_files_per_directory(10) # For speed
         self.bd.create_directory()
         for i in range(2 * self.bd.get_max_files_per_directory()):
             self.create(self.bd.next_filename(), "")
