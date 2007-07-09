@@ -339,6 +339,16 @@ class BackupData:
         f.write(data)
         f.close()
 
+    def _modify_files_of_a_kind(self, filenames, size, generate_data):
+        """Modify files by appending data to them"""
+        while size > 0:
+            filename = self._prng.choice(filenames)
+            this_size = os.path.getsize(filename)
+            amount = min(int(0.01 * self._modify_percentage * this_size),
+                         size)
+            self.append_data(filename, generate_data(amount))
+            size -= amount
+
     def modify_files(self, size):
         """Modify existing files by appending to them
         
@@ -360,16 +370,7 @@ class BackupData:
             bin_size = size - text_size
 
             self.init_prng()
-            while text_size > 0 or bin_size > 0:
-                file = self._prng.choice(files)
-                this_size = os.path.getsize(file)
-                amount = int(0.01 * self._modify_percentage * this_size)
-                if text_size > 0:
-                    amount = min(amount, text_size)
-                    data = self.generate_text_data(amount)
-                    text_size -= amount
-                else:
-                    amount = min(amount, bin_size)
-                    data = self.generate_binary_data(amount)
-                    bin_size -= amount
-                self.append_data(file, data)
+            self._modify_files_of_a_kind(files, text_size, 
+                                         self.generate_text_data)
+            self._modify_files_of_a_kind(files, bin_size, 
+                                         self.generate_binary_data)
