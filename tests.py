@@ -371,6 +371,16 @@ class CommandLineParserTests(unittest.TestCase):
     def testParsesPlainSizeCorrectly(self):
         self.failUnlessEqual(self.clp.parse_size("12765"), 12765)
 
+    def testParsesAbsoluteSuffixesCorrectly(self):
+        self.failUnlessEqual(self.clp.parse_size("3k"), 3 * genbackupdata.KiB)
+        self.failUnlessEqual(self.clp.parse_size("3K"), 3 * genbackupdata.KiB)
+        self.failUnlessEqual(self.clp.parse_size("3m"), 3 * genbackupdata.MiB)
+        self.failUnlessEqual(self.clp.parse_size("3M"), 3 * genbackupdata.MiB)
+        self.failUnlessEqual(self.clp.parse_size("3g"), 3 * genbackupdata.GiB)
+        self.failUnlessEqual(self.clp.parse_size("3G"), 3 * genbackupdata.GiB)
+        self.failUnlessEqual(self.clp.parse_size("3t"), 3 * genbackupdata.TiB)
+        self.failUnlessEqual(self.clp.parse_size("3T"), 3 * genbackupdata.TiB)
+
     def testHandlesOptionForSeed(self):
         args = self.clp.parse(["--seed=12765"])
         self.failUnlessEqual(args, [])

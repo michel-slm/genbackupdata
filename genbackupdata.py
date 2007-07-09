@@ -27,6 +27,8 @@ import random
 
 KiB = 2 ** 10   # A kibibyte
 MiB = 2 ** 20   # A mebibyte
+GiB = 2 ** 30   # A gibibyte
+TiB = 2 ** 40   # A tebibyte
 
 # Defaults for various settings in the BackupData class.
 DEFAULT_SEED = 0
@@ -410,6 +412,13 @@ class CommandLineParser:
 
     def parse_size(self, size):
         """Parse a SIZE argument (absolute, relative, with/without suffix)"""
+        
+        suffixes = (("k", KiB), ("m", MiB), ("g", GiB), ("t", TiB))
+
+        for suffix, factor in suffixes:
+            if size.lower().endswith(suffix):
+                return int(float(size[:-len(suffix)]) * factor)
+
         return int(size)
 
     def parse(self, args):
