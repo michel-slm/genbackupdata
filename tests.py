@@ -515,6 +515,13 @@ class ApplicationTests(unittest.TestCase):
         app.run()
         self.failUnlessEqual(self.data_size(), 100 * genbackupdata.KiB)
 
+    def testIncreasesSecondGenerationCorrectly(self):
+        app = genbackupdata.Application(["-c100k", self.dirname])
+        app.run()
+        app = genbackupdata.Application(["-c100k", self.dirname])
+        app.run()
+        self.failUnlessEqual(self.data_size(), 200 * genbackupdata.KiB)
+
 
 if __name__ == "__main__":
     unittest.main()
