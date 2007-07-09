@@ -30,6 +30,7 @@ MiB = 2 ** 20   # A mebibyte
 DEFAULT_TEXT_FILE_SIZE = 10 * KiB
 DEFAULT_BINARY_FILE_SIZE = 10 * MiB
 DEFAULT_TEXT_DATA_PERCENTAGE = 10.0
+DEFAULT_MAX_FILES_PER_DIRECTORY = 256
 
 
 class BackupData:
@@ -41,6 +42,7 @@ class BackupData:
         self._text_file_size = DEFAULT_TEXT_FILE_SIZE
         self._binary_file_size = DEFAULT_BINARY_FILE_SIZE
         self._text_data_percentage = DEFAULT_TEXT_DATA_PERCENTAGE
+        self._max_files_per_directory = DEFAULT_MAX_FILES_PER_DIRECTORY
         self._preexisting_file_count = 0
         self._preexisting_data_size = 0
         
@@ -72,6 +74,14 @@ class BackupData:
     def set_text_data_percentage(self, percent):
         """Set percentage of text data of new data that gets created"""
         self._text_data_percentage = percent
+
+    def get_max_files_per_directory(self):
+        """Return current setting of maximum number of files per directory"""
+        return self._max_files_per_directory
+
+    def set_max_files_per_directory(self, count):
+        """Set maximum number of files per directory"""
+        self._max_files_per_directory = count
 
     def get_preexisting_file_count(self):
         """Return count of files that existed in directory in the beginning"""

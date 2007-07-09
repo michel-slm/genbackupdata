@@ -70,13 +70,21 @@ class BackupDataTests(unittest.TestCase):
         self.bd.set_binary_file_size(12765)
         self.failUnlessEqual(self.bd.get_binary_file_size(), 12765)
 
-    def testHasCorrectTextDataPercentage(self):
+    def testHasCorrectDefaultTextDataPercentage(self):
         self.failUnlessEqual(self.bd.get_text_data_percentage(), 
                              genbackupdata.DEFAULT_TEXT_DATA_PERCENTAGE)
 
     def testCorrectlySetsTextDataPercentage(self):
         self.bd.set_text_data_percentage(42.0)
         self.failUnlessEqual(self.bd.get_text_data_percentage(), 42.0)
+
+    def testHasCorrectDefaultMaxFilesPerDirectory(self):
+        self.failUnlessEqual(self.bd.get_max_files_per_directory(), 
+                             genbackupdata.DEFAULT_MAX_FILES_PER_DIRECTORY)
+
+    def testCorrectlySetsMaxFilesPerDirectory(self):
+        self.bd.set_max_files_per_directory(12765)
+        self.failUnlessEqual(self.bd.get_max_files_per_directory(), 12765)
 
     def testSetsPreExistingFileCountToZeroByDefault(self):
         self.failUnlessEqual(self.bd.get_preexisting_file_count(), 0)
