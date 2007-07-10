@@ -344,6 +344,12 @@ class BackupData:
             for file in self.choose_files_randomly(count):
                 os.rename(file, self.next_filename())
 
+    def link_files(self, count):
+        """Create COUNT new filenames that are hard links to existing files"""
+        if os.path.exists(self._dirname):
+            for file in self.choose_files_randomly(count):
+                os.link(file, self.next_filename())
+
     def get_modify_percentage(self):
         """Return how many percent to grow each file with modify_files()"""
         return self._modify_percentage

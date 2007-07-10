@@ -318,7 +318,7 @@ class BackupDataTests(unittest.TestCase):
         self.bd.find_preexisting_files()
         self.failUnlessEqual(self.bd.get_preexisting_file_count(), remaining)
 
-    def testRenameFiles(self):
+    def testRenamesFilesCorrectly(self):
         self.bd.create_directory()
         filename = self.bd.next_filename()
         self.create(filename, "")
@@ -326,6 +326,14 @@ class BackupDataTests(unittest.TestCase):
         self.bd.rename_files(1)
         self.failIf(os.path.exists(filename))
         self.failUnless(os.path.exists(new_filename))
+
+    def testCreatesLinksCorrectly(self):
+        self.bd.create_directory()
+        filename = self.bd.next_filename()
+        self.create(filename, "")
+        new_filename = self.bd.next_filename()
+        self.bd.link_files(1)
+        self.failUnless(os.path.samefile(filename, new_filename))
 
     def testHasCorrectDefaultModifyPercentage(self):
         self.failUnlessEqual(self.bd.get_modify_percentage(),
