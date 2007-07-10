@@ -477,6 +477,11 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(options.rename, 12765)
 
+    def testHandlesOptionForLink(self):
+        options, args = self.clp.parse(["--link=12765"])
+        self.failUnlessEqual(args, [])
+        self.failUnlessEqual(options.link, 12765)
+
     def testHandlesOptionForModify(self):
         options, args = self.clp.parse(["--modify=12765"])
         self.failUnlessEqual(args, [])

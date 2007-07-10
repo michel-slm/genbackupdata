@@ -450,6 +450,11 @@ class CommandLineParser:
                      metavar="COUNT",
                      help="Rename COUNT files")
 
+        p.add_option("-l", "--link",
+                     action="store",
+                     metavar="COUNT",
+                     help="Create COUNT new hard links")
+
         p.add_option("-m", "--modify",
                      action="store",
                      metavar="SIZE",
@@ -535,6 +540,10 @@ class CommandLineParser:
 
         if options.rename:
             options.rename = self.parse_count(options.rename, 
+                                        self._bd.get_preexisting_file_count())
+
+        if options.link:
+            options.link = self.parse_count(options.link, 
                                         self._bd.get_preexisting_file_count())
 
         return options, args
