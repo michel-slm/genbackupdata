@@ -570,6 +570,13 @@ class ApplicationTests(unittest.TestCase):
         self.failIfEqual(sorted(files1), sorted(files2))
         self.failUnlessEqual(len(files1), len(files2))
 
+    def testLinksFilesForSecondGenerationCorrectly(self):
+        self.apprun(["-c10k", self.dirname])
+        files1 = self.file_list()
+        self.apprun(["-l2", self.dirname])
+        files2 = self.file_list()
+        self.failUnlessEqual(len(files1) + 2, len(files2))
+
 
 if __name__ == "__main__":
     unittest.main()

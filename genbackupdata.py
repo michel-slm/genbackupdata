@@ -591,6 +591,9 @@ class Application:
             if options.rename:
                 self._bd.rename_files(options.rename)
             
+            if options.link:
+                self._bd.link_files(options.link)
+            
             if options.modify:
                 self._bd.modify_files(options.modify)
             
