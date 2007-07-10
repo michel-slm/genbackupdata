@@ -20,6 +20,7 @@
 """Generate backup test data"""
 
 
+import md5
 import optparse
 import os
 import random
@@ -258,10 +259,14 @@ class BackupData:
     def generate_binary_data(self, size):
         """Generate SIZE bytes of more or less random binary junk"""
         self.init_prng()
-        bytes = []
-        for i in range(size):
-            bytes.append(chr(self._prng.getrandbits(8)))
-        return "".join(bytes)
+        hasher = md5.new()
+        result = []
+        while size > 0:
+            hasher.update(chr(self._prng.getrandbits(8)))
+            chunk = hasher.digest()[:size]
+            size -= len(chunk)
+            result.append(chunk)
+        return "".join(result)
 
     def create_subdirectories(self, filename):
         """Create the sub-directories that are needed to create filename"""
