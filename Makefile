@@ -8,3 +8,6 @@ check:
 
 clean:
 	rm -rf *.pyc *.pyo dist MANIFEST
+
+dist:
+	python setup.py sdist
