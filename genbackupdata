@@ -1,0 +1,6 @@
+#!/usr/bin/python
+#
+# Run genbackupdata.Application as a command line utility.
+
+import sys, genbackupdata
+genbackupdata.Application(sys.argv[1:]).run()
