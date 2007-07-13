@@ -7,4 +7,4 @@ check:
 	    awk '{ print } /^TOTAL/ && $$2 != $$3 {exit 1}'
 
 clean:
-	rm -rf *.pyc *.pyo dist
+	rm -rf *.pyc *.pyo dist MANIFEST
