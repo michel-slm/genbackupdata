@@ -7,7 +7,7 @@ check:
 	    awk '{ print } /^TOTAL/ && $$2 != $$3 {exit 1}'
 
 clean:
-	rm -rf *.pyc *.pyo dist MANIFEST
+	rm -rf *.pyc *.pyo build dist MANIFEST
 
 dist:
 	python setup.py sdist
