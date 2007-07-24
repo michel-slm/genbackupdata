@@ -606,3 +606,7 @@ class Application:
         except AppException, e:
             self._error(str(e) + "\n")
             sys.exit(1)
+
+
+if __name__ == "__main__": #pragma: no cover
+    Application(sys.argv[1:]).run()
