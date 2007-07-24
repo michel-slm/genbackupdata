@@ -256,15 +256,31 @@ class BackupData:
 
     def generate_binary_data(self, size):
         """Generate SIZE bytes of more or less random binary junk"""
-        self.init_prng()
-        hasher = md5.new()
-        result = []
-        while size > 0:
-            hasher.update(chr(self._prng.getrandbits(8)))
-            chunk = hasher.digest()[:size]
-            size -= len(chunk)
-            result.append(chunk)
-        return "".join(result)
+
+        # The following code has had some fine manual fine tuning done
+        # to it. This has made it ugly, but faster. On a 1.2 MHz Intel
+        # Pentium M, it generates around 6 MB/s.
+
+        chunks = []
+        sum = md5.new()
+        chunk_size = md5.digest_size
+    
+        initial_bytes = min(size, chunk_size * 8)
+        for i in range(initial_bytes / chunk_size):
+            sum.update(chr(random.getrandbits(8)))
+            chunks.append(sum.digest())
+    
+        size -= len(chunks) * chunk_size
+        for i in range(size / chunk_size):
+            sum.update("a")
+            chunks.append(sum.digest())
+    
+        if size % chunk_size > 0:
+            sum.update(chr(random.getrandbits(8)))
+            chunks.append(sum.digest()[:size % chunk_size])
+    
+        return "".join(chunks)
+
 
     def create_subdirectories(self, filename):
         """Create the sub-directories that are needed to create filename"""
