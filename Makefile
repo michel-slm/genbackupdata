@@ -5,3 +5,9 @@ check:
 	python-coverage -x tests.py
 	python-coverage -r -m -o /usr,/var | \
 	    awk '{ print } /^TOTAL/ && $$2 != $$3 {exit 1}'
+
+clean:
+	rm -rf *.pyc *.pyo build dist MANIFEST
+
+dist:
+	python setup.py sdist

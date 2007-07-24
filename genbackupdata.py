@@ -1,5 +1,3 @@
-#!/usr/bin/python
-#
 # Copyright (C) 2007  Lars Wirzenius <liw@iki.fi>
 #
 # This program is free software; you can redistribute it and/or modify
