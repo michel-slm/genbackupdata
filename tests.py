@@ -177,7 +177,7 @@ class BackupDataTests(unittest.TestCase):
 
     def testChoosesFirstFilenameCorrectly(self):
         filename = self.bd.next_filename()
-        self.failUnlessEqual(filename, os.path.join(self.dirname, "file0"))
+        self.failUnless(filename.startswith(self.dirname))
 
     def testChoosesFirstFilenameCorrectlyTwice(self):
         filename1 = self.bd.next_filename()
@@ -190,47 +190,22 @@ class BackupDataTests(unittest.TestCase):
         self.create(filename1, "")
         filename2 = self.bd.next_filename()
         self.failIfEqual(filename1, filename2)
-        self.failUnlessEqual(filename2, os.path.join(self.dirname, "file1"))
 
-    def testChoosesRootWhenItDoesNotExist(self):
-        self.failUnlessEqual(self.dirname, self.bd._choose_directory())
-
-    def testChoosesRootWhenItIsEmpty(self):
-        self.bd.create_directory()
-        self.failUnlessEqual(self.dirname, self.bd._choose_directory())
-
-    def testChoosesRootDirectoryUntilMaxFileLimitIsReached(self):
+    def testChoosesSameDirectoryUntilMaxFileLimitIsReached(self):
         self.bd.set_max_files_per_directory(10) # For speed
         self.bd.create_directory()
+        chosen = self.bd._choose_directory()
         for i in range(self.bd.get_max_files_per_directory()):
-            self.failUnlessEqual(self.bd._choose_directory(), self.dirname)
+            self.failUnlessEqual(self.bd._choose_directory(), chosen)
             self.create(self.bd.next_filename(), "")
 
-    def testChoosesSubdirectoryWhenMaxFileLimitIsReached(self):
+    def testChoosesNewDirectoryWhenMaxFileLimitIsReached(self):
         self.bd.set_max_files_per_directory(10) # For speed
         self.bd.create_directory()
+        chosen = self.bd._choose_directory()
         for i in range(self.bd.get_max_files_per_directory()):
             self.create(self.bd.next_filename(), "")
-        self.failUnlessEqual(self.bd._choose_directory(),
-                             os.path.join(self.dirname, "dir0"))
-
-    def testChoosesFirstSubdirectoryUntilMaxFileLimitIsReached(self):
-        self.bd.set_max_files_per_directory(10) # For speed
-        self.bd.create_directory()
-        for i in range(self.bd.get_max_files_per_directory()):
-            self.create(self.bd.next_filename(), "")
-        for i in range(self.bd.get_max_files_per_directory()):
-            self.failUnlessEqual(self.bd._choose_directory(),
-                                 os.path.join(self.dirname, "dir0"))
-            self.create(self.bd.next_filename(), "")
-
-    def testChoosesSecondSubdirectoryWhenFirstOneFillsUp(self):
-        self.bd.set_max_files_per_directory(10) # For speed
-        self.bd.create_directory()
-        for i in range(2 * self.bd.get_max_files_per_directory()):
-            self.create(self.bd.next_filename(), "")
-        self.failUnlessEqual(self.bd._choose_directory(),
-                             os.path.join(self.dirname, "dir1"))
+        self.failIfEqual(self.bd._choose_directory(), chosen)
 
     def testGeneratesSmallAmountOfTextDataCorrectly(self):
         n = 128
