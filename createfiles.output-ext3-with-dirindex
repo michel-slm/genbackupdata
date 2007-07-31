@@ -1,0 +1,528 @@
+Measuring 7 functions for creating 10 files of 0 bytes
+
+ 41487 files/s onedir           All files in one directory
+ 34721 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 35727 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 34606 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 15082 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 15169 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 15219 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 1000 files of 0 bytes
+
+ 38065 files/s onedir           All files in one directory
+ 44621 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 41822 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 36725 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 16732 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 16327 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 15492 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 2000 files of 0 bytes
+
+ 37583 files/s onedir           All files in one directory
+ 43994 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 41007 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 36047 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 16692 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 16200 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 15404 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 4000 files of 0 bytes
+
+ 36298 files/s onedir           All files in one directory
+ 43217 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 40305 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 35675 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 16520 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 16102 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 15307 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 8000 files of 0 bytes
+
+ 35039 files/s onedir           All files in one directory
+ 42752 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 39964 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 35321 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 15394 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 15941 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 15280 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 16000 files of 0 bytes
+
+ 34941 files/s onedir           All files in one directory
+ 42378 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 39506 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 35237 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 14456 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 15912 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 15183 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 32000 files of 0 bytes
+
+ 34194 files/s onedir           All files in one directory
+ 42020 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 38924 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 35041 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 16385 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 15051 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 15164 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 64000 files of 0 bytes
+
+ 29784 files/s onedir           All files in one directory
+ 41785 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 38778 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 31200 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 15282 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 14932 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 14309 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 128000 files of 0 bytes
+
+ 31150 files/s onedir           All files in one directory
+ 30689 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 38397 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 30766 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 14921 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 15011 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 14034 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 256000 files of 0 bytes
+
+ 29211 files/s onedir           All files in one directory
+ 19747 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 35337 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 28877 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 14432 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 14121 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 14065 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 512000 files of 0 bytes
+
+ 24449 files/s onedir           All files in one directory
+ 21297 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 24421 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 25494 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 13814 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 13897 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 13321 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 1024000 files of 0 bytes
+
+ 20239 files/s onedir           All files in one directory
+ 20728 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 23730 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 26271 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 13227 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 13837 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 12941 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 10 files of 4096 bytes
+
+ 23630 files/s onedir           All files in one directory
+ 21654 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 21687 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 21834 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 11364 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 11822 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 11808 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 1000 files of 4096 bytes
+
+ 21001 files/s onedir           All files in one directory
+ 24392 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 23646 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 21926 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 12504 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 12236 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 11767 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 2000 files of 4096 bytes
+
+ 21391 files/s onedir           All files in one directory
+ 24029 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 21909 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 20476 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 11577 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 11167 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 10509 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 4000 files of 4096 bytes
+
+ 21258 files/s onedir           All files in one directory
+ 23132 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 21925 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 20587 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 12205 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 11882 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 11340 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 8000 files of 4096 bytes
+
+ 19734 files/s onedir           All files in one directory
+ 18496 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 12523 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 20460 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 12078 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 11650 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 11207 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 16000 files of 4096 bytes
+
+ 20482 files/s onedir           All files in one directory
+ 20108 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 19301 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 20069 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 10945 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 10651 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 10582 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 32000 files of 4096 bytes
+
+  9755 files/s onedir           All files in one directory
+  6502 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 18511 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 18066 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 10939 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  9046 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 10583 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 64000 files of 4096 bytes
+
+  3890 files/s onedir           All files in one directory
+  5069 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 14446 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 18703 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 10159 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  9593 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  9773 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 128000 files of 4096 bytes
+
+  5949 files/s onedir           All files in one directory
+  6611 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 15273 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  5965 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  9935 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  9203 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  6478 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 256000 files of 4096 bytes
+
+  4751 files/s onedir           All files in one directory
+  8139 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  6566 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 10514 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  7560 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  7301 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  9719 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 512000 files of 4096 bytes
+
+  3535 files/s onedir           All files in one directory
+  3437 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  4330 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  6881 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  4924 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  4542 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  7061 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 1024000 files of 4096 bytes
+
+  2710 files/s onedir           All files in one directory
+  4207 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  4564 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  5296 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  4537 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  4645 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  5819 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 10 files of 8192 bytes
+
+ 19373 files/s onedir           All files in one directory
+ 18316 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 18658 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 17765 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 10673 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 10719 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 10763 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 1000 files of 8192 bytes
+
+ 18659 files/s onedir           All files in one directory
+ 19490 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 17477 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 17948 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 11172 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 10809 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 10212 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 2000 files of 8192 bytes
+
+ 18249 files/s onedir           All files in one directory
+ 19500 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 18248 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 17029 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 10853 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 10562 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 10424 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 4000 files of 8192 bytes
+
+ 17060 files/s onedir           All files in one directory
+ 18711 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 17258 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 16282 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  9925 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 10461 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 10164 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 8000 files of 8192 bytes
+
+ 16615 files/s onedir           All files in one directory
+ 18280 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 18477 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 17209 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 10573 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 10560 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 10102 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 16000 files of 8192 bytes
+
+ 15661 files/s onedir           All files in one directory
+ 19164 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 18020 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 16883 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 10678 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 10305 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+ 10060 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 32000 files of 8192 bytes
+
+ 16703 files/s onedir           All files in one directory
+  5068 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 17810 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 16753 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+ 10521 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  9306 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  9704 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 64000 files of 8192 bytes
+
+  8254 files/s onedir           All files in one directory
+  4493 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 10132 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  9293 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  9015 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+ 10250 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  8196 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 128000 files of 8192 bytes
+
+  5450 files/s onedir           All files in one directory
+  5504 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  5132 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  3632 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  6036 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  6438 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  6124 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 256000 files of 8192 bytes
+
+  3934 files/s onedir           All files in one directory
+  4512 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  4862 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  4884 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  4759 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  4793 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  4859 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 512000 files of 8192 bytes
+
+  3896 files/s onedir           All files in one directory
+  2877 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  3482 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  3635 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  3426 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  3750 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  3865 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 1024000 files of 8192 bytes
+
+  3826 files/s onedir           All files in one directory
+  2922 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  3340 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  3487 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  3076 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  3731 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  3703 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 10 files of 16384 bytes
+
+ 15104 files/s onedir           All files in one directory
+ 14559 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 14619 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 14533 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  9310 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  9243 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  9259 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 1000 files of 16384 bytes
+
+ 14222 files/s onedir           All files in one directory
+ 14999 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 14608 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 13958 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  9369 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  9190 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  8849 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 2000 files of 16384 bytes
+
+ 13653 files/s onedir           All files in one directory
+ 14240 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 13868 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 13063 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  8971 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  8574 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  8931 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 4000 files of 16384 bytes
+
+ 13586 files/s onedir           All files in one directory
+ 14100 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 13760 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 12727 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  8825 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  8567 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  7580 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 8000 files of 16384 bytes
+
+ 13429 files/s onedir           All files in one directory
+ 14343 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 13183 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 12703 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  9021 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  9018 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  8445 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 16000 files of 16384 bytes
+
+ 12358 files/s onedir           All files in one directory
+ 13828 files/s subdirsof100     Files in subdirs, each with up to 100 files
+ 13826 files/s subdirsof250     Files in subdirs, each with up to 250 files
+ 13549 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  8919 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  8951 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  8736 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 32000 files of 16384 bytes
+
+  7278 files/s onedir           All files in one directory
+  8634 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  9575 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  9640 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  9092 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  8398 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  8670 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 64000 files of 16384 bytes
+
+  3188 files/s onedir           All files in one directory
+  2988 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  3205 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  3400 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  3310 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  3233 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  3392 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 128000 files of 16384 bytes
+
+  2506 files/s onedir           All files in one directory
+  2420 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  2596 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  2671 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  2489 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  2191 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  2496 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 256000 files of 16384 bytes
+
+  2098 files/s onedir           All files in one directory
+  2010 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  2093 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  2084 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  2148 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  2208 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  2085 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 512000 files of 16384 bytes
+
+  2031 files/s onedir           All files in one directory
+  1585 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  1930 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  1996 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  1924 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  1984 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  2001 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
+Measuring 7 functions for creating 1024000 files of 16384 bytes
+
+  2002 files/s onedir           All files in one directory
+  1689 files/s subdirsof100     Files in subdirs, each with up to 100 files
+  1927 files/s subdirsof250     Files in subdirs, each with up to 250 files
+  1980 files/s subdirsof1000    Files in subdirs, each with up to 1000 files
+  1747 files/s subsubdirsof100  Files in two-level tree, up to 100 files each
+  1959 files/s subsubdirsof250  Files in two-level tree, up to 250 files each
+  1954 files/s subsubdirsof1000 Files in two-level tree, up to 1000 files each
+
+
