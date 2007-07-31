@@ -14,6 +14,14 @@ same output always happens. Thus it is more efficient to distribute
 genbackupdata and a set of parameters between people who wish to
 benchmark backup software than distributing very large test sets.
 
+Also included are a couple of benchmark programs I've written to measure
+aspects of the work genbackupdata does:
+
+    * binaryjunk.py compares various ways of generating random binary data
+    
+    * createfiles.py compares various directory structures when creating
+      lots of new files
+
 The home page is: http://braawi.org/genbackupdata.html
 
 Legalese:
