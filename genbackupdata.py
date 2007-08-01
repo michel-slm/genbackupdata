@@ -68,6 +68,8 @@ class BackupData:
         self._preexisting_file_count = 0
         self._preexisting_data_size = 0
         self._filename_counter = 0
+        self._current_dir_no = 0
+        self._next_filecount = 0
         
     def set_directory(self, dirname):
         """Set the directory to be operated on
@@ -197,34 +199,21 @@ class BackupData:
         self.set_preexisting_file_count(count)
         self.set_preexisting_data_size(size)
 
-    def _files_in_directory(self, dirname):
-        """Return number of non-directory files in a directory
-        
-        This returns 0 if the directory doesn't exist, or there's another
-        error with os.listdir or otherwise.
-        
-        """
-        
-        try:
-            names = os.listdir(dirname)
-            names = [os.path.join(dirname, x) for x in names]
-            files = [x for x in names if not os.path.isdir(x)]
-            return len(files)
-        except os.error:
-            return 0
-
     def _choose_directory(self):
         """Choose directory in which to create the next file"""
-        max = self.get_max_files_per_directory()
-        if self._files_in_directory(self._dirname) < max:
-            return self._dirname
-        i = 0
+        
         while True:
-            dirname = os.path.join(self._dirname, "dir%d" % i)
-            if self._files_in_directory(dirname) < max:
-                return dirname
-            i += 1
-
+            dirname = os.path.join(self._dirname, 
+                                   "dir%d" % self._current_dir_no)
+            if not os.path.exists(dirname):
+                self._next_filecount = 0
+                break
+            if (self._next_filecount > 0 and
+                self._next_filecount < self._max_files_per_directory):
+                break
+            self._current_dir_no += 1
+        return dirname
+        
     def next_filename(self):
         """Choose the name of the next filename
         
@@ -237,11 +226,13 @@ class BackupData:
         but it is probably a bad idea for external code to rely on this.
         
         """
+
         dirname = self._choose_directory()
         while True:
             filename = os.path.join(dirname, 
                                     "file%d" % self._filename_counter)
             if not os.path.exists(filename):
+                self._next_filecount += 1
                 return filename
             self._filename_counter += 1
 
@@ -280,7 +271,6 @@ class BackupData:
             chunks.append(sum.digest()[:size % chunk_size])
     
         return "".join(chunks)
-
 
     def create_subdirectories(self, filename):
         """Create the sub-directories that are needed to create filename"""
@@ -361,13 +351,17 @@ class BackupData:
         """Rename COUNT files to new names"""
         if os.path.exists(self._dirname):
             for file in self.choose_files_randomly(count):
-                os.rename(file, self.next_filename())
+                new_file = self.next_filename()
+                self.create_subdirectories(new_file)
+                os.rename(file, new_file)
 
     def link_files(self, count):
         """Create COUNT new filenames that are hard links to existing files"""
         if os.path.exists(self._dirname):
             for file in self.choose_files_randomly(count):
-                os.link(file, self.next_filename())
+                new_file = self.next_filename()
+                self.create_subdirectories(new_file)
+                os.link(file, new_file)
 
     def get_modify_percentage(self):
         """Return how many percent to grow each file with modify_files()"""
