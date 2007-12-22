@@ -40,7 +40,8 @@ DEFAULT_MAX_FILES_PER_DIRECTORY = 256
 DEFAULT_MODIFY_PERCENTAGE = 10
 
 # Random filler text for generating text data.
-LOREM_IPSUM = """
+if True: #pragma: no cover:
+    LOREM_IPSUM = """
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
 veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -70,6 +71,10 @@ class BackupData:
         self._filename_counter = 0
         self._current_dir_no = 0
         self._next_filecount = 0
+        self._binary_blob = None
+
+    def make_binary_data_generation_fast_but_bad(self):
+        self.generate_binary_data = self.generate_binary_data_quickly
         
     def set_directory(self, dirname):
         """Set the directory to be operated on
@@ -245,7 +250,7 @@ class BackupData:
             rest = size % len(LOREM_IPSUM)
             return "".join(([LOREM_IPSUM] * full) + [LOREM_IPSUM[:rest]])
 
-    def generate_binary_data(self, size):
+    def generate_binary_data_well(self, size):
         """Generate SIZE bytes of more or less random binary junk"""
 
         # The following code has had some fine manual fine tuning done
@@ -271,6 +276,22 @@ class BackupData:
             chunks.append(sum.digest()[:size % chunk_size])
     
         return "".join(chunks)
+
+    generate_binary_data = generate_binary_data_well
+
+    def generate_binary_data_quickly(self, size):
+        """Generate SIZE bytes of binary junk, which may be compressible."""
+        
+        if self._binary_blob is None:
+            self._binary_blob = self.generate_binary_data_well(
+                                    self._chunk_size)
+        if size <= len(self._binary_blob):
+            return self._binary_blob[:size]
+        else:
+            full = size / len(self._binary_blob)
+            rest = size % len(self._binary_blob)
+            return "".join(([self._binary_blob] * full) + 
+                           [self._binary_blob[:rest]])
 
     def create_subdirectories(self, filename):
         """Create the sub-directories that are needed to create filename"""
@@ -448,6 +469,13 @@ class CommandLineParser:
                      metavar="SIZE",
                      help="Make new binary files be of size SIZE")
 
+        p.add_option("--bad-binary-data",
+                     action="store_true",
+                     default=False,
+                     help="When generating binary data, generate it "
+                          "quickly, but in a way that does not make it "
+                          "uncompressible.")
+
         p.add_option("-c", "--create",
                      action="store",
                      metavar="SIZE",
@@ -518,6 +546,9 @@ class CommandLineParser:
         """Parse command line arguments"""
         options, args = self._parser.parse_args(args)
         
+        if options.bad_binary_data:
+            self._bd.make_binary_data_generation_fast_but_bad()
+
         if options.seed:
             self._bd.set_seed(int(options.seed))
         
@@ -571,8 +602,8 @@ class AppException(Exception):
 class NeedExactlyOneDirectoryName(AppException):
 
     def __init__(self):
-        self._str = \
-            "Need exactly one command line argument, giving directory name"
+        self._str = ("Need exactly one command line argument, "
+                     "giving directory name")
 
 
 class Application:
