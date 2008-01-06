@@ -71,6 +71,15 @@ class BackupData:
         self._filename_counter = 0
         self._current_dir_no = 0
         self._next_filecount = 0
+        
+        # The zlib compression algorithm gives up if it gets a block of
+        # 32 KiB bytes it can't find in its dictionary. It completely
+        # ignores such a block, meaning that if it is repeated, then
+        # it ignores it repeatedly. Most importantly for us, it doesn't
+        # compress the repeats, either. Thus, to generate lots of
+        # uncompressible binary data, we can generate a blob and repeat
+        # that. Thanks to Richard Braakman for the idea.
+        self._binary_blob_size = 64 * 1024 # Safety factor of 2
         self._binary_blob = None
 
     def set_directory(self, dirname):
@@ -249,7 +258,7 @@ class BackupData:
 
     def generate_binary_data_well(self, size):
         """Generate SIZE bytes of more or less random binary junk"""
-
+        
         # The following code has had some fine manual fine tuning done
         # to it. This has made it ugly, but faster. On a 1.2 MHz Intel
         # Pentium M, it generates around 6 MB/s.
@@ -274,14 +283,18 @@ class BackupData:
     
         return "".join(chunks)
 
-    generate_binary_data = generate_binary_data_well
-
-    def generate_binary_data_quickly(self, size):
-        """Generate SIZE bytes of binary junk, which may be compressible."""
+    def generate_binary_data(self, size):
+        """Generate SIZE bytes of binary junk.
+        
+        This is different from generate_binary_data_well in that
+        it makes use of _binary_blob (and generates that if it does
+        not yet exist).
+        
+        """
         
         if self._binary_blob is None:
             self._binary_blob = self.generate_binary_data_well(
-                                    self._chunk_size)
+                                    self._binary_blob_size)
         if size <= len(self._binary_blob):
             return self._binary_blob[:size]
         else:
