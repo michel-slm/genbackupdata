@@ -73,9 +73,6 @@ class BackupData:
         self._next_filecount = 0
         self._binary_blob = None
 
-    def make_binary_data_generation_fast_but_bad(self):
-        self.generate_binary_data = self.generate_binary_data_quickly
-        
     def set_directory(self, dirname):
         """Set the directory to be operated on
         
@@ -469,13 +466,6 @@ class CommandLineParser:
                      metavar="SIZE",
                      help="Make new binary files be of size SIZE")
 
-        p.add_option("--bad-binary-data",
-                     action="store_true",
-                     default=False,
-                     help="When generating binary data, generate it "
-                          "quickly, but in a way that does not make it "
-                          "uncompressible.")
-
         p.add_option("-c", "--create",
                      action="store",
                      metavar="SIZE",
@@ -546,9 +536,6 @@ class CommandLineParser:
         """Parse command line arguments"""
         options, args = self._parser.parse_args(args)
         
-        if options.bad_binary_data:
-            self._bd.make_binary_data_generation_fast_but_bad()
-
         if options.seed:
             self._bd.set_seed(int(options.seed))
         

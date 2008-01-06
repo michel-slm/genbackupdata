@@ -66,11 +66,6 @@ class BackupDataTests(unittest.TestCase):
         self.failUnlessEqual(self.bd.generate_binary_data,
                              self.bd.generate_binary_data_well)
 
-    def testSetsOtherBinaryDataGeneratorWhenRequested(self):
-        self.bd.make_binary_data_generation_fast_but_bad()
-        self.failUnlessEqual(self.bd.generate_binary_data,
-                             self.bd.generate_binary_data_quickly)
-
     def testSetsDirectoryCorrect(self):
         self.failUnlessEqual(self.bd.get_directory(), self.dirname)
 
@@ -441,12 +436,6 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_binary_file_size(), 
                              genbackupdata.TiB)
-
-    def testSetsBinaryGeneratorWhenRequested(self):
-        options, args = self.clp.parse(["--bad-binary-data"])
-        self.failUnlessEqual(args, [])
-        self.failUnlessEqual(self.bd.generate_binary_data,
-                             self.bd.generate_binary_data_quickly)
 
     def testHandlesOptionForCreate(self):
         options, args = self.clp.parse(["--create=1t"])
