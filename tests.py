@@ -62,15 +62,6 @@ class BackupDataTests(unittest.TestCase):
         del self.bd
         self.remove_dir()
 
-    def testHasRightDefaultBinaryDataGenerator(self):
-        self.failUnlessEqual(self.bd.generate_binary_data,
-                             self.bd.generate_binary_data_well)
-
-    def testSetsOtherBinaryDataGeneratorWhenRequested(self):
-        self.bd.make_binary_data_generation_fast_but_bad()
-        self.failUnlessEqual(self.bd.generate_binary_data,
-                             self.bd.generate_binary_data_quickly)
-
     def testSetsDirectoryCorrect(self):
         self.failUnlessEqual(self.bd.get_directory(), self.dirname)
 
@@ -226,20 +217,20 @@ class BackupDataTests(unittest.TestCase):
         self.failUnlessEqual(self.bd.generate_text_data(n * 2),
                              genbackupdata.LOREM_IPSUM * 2)
 
-    def testGeneratesRequestedAmountOfBinaryData(self):
-        n = 128
-        self.failUnlessEqual(len(self.bd.generate_binary_data(n)), n)
+    def testGeneratesRequestedAmountOfBinaryDataWell(self):
+        n = 37
+        self.failUnlessEqual(len(self.bd.generate_binary_data_well(n)), n)
 
     def testGeneratesRequestedAmountOfBinaryDataQuickly(self):
         n = 128
-        self.failUnlessEqual(len(self.bd.generate_binary_data_quickly(n)), n)
+        self.failUnlessEqual(len(self.bd.generate_binary_data(n)), n)
 
-    def testGeneratesRequestedLargeAmountOfBinaryDataQuickly(self):
-        n = self.bd._chunk_size * 2 + 1
-        self.failUnlessEqual(len(self.bd.generate_binary_data_quickly(n)), n)
+    def testGeneratesRequestedLargeAmountOfBinaryData(self):
+        n = self.bd._binary_blob_size + 1
+        self.failUnlessEqual(len(self.bd.generate_binary_data(n)), n)
 
     def testGeneratesBinaryDataWhichDoesNotCompressWell(self):
-        n = 10 * 1024
+        n = self.bd._binary_blob_size * 4
         data = zlib.compress(self.bd.generate_binary_data(n))
         self.failUnless(len(data) > 0.95* n)
 
@@ -441,12 +432,6 @@ class CommandLineParserTests(unittest.TestCase):
         self.failUnlessEqual(args, [])
         self.failUnlessEqual(self.bd.get_binary_file_size(), 
                              genbackupdata.TiB)
-
-    def testSetsBinaryGeneratorWhenRequested(self):
-        options, args = self.clp.parse(["--bad-binary-data"])
-        self.failUnlessEqual(args, [])
-        self.failUnlessEqual(self.bd.generate_binary_data,
-                             self.bd.generate_binary_data_quickly)
 
     def testHandlesOptionForCreate(self):
         options, args = self.clp.parse(["--create=1t"])
