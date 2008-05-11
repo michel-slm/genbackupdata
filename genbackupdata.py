@@ -548,6 +548,10 @@ class CommandLineParser:
     def parse(self, args):
         """Parse command line arguments"""
         options, args = self._parser.parse_args(args)
+            
+        if len(args) == 1:
+            self._bd.set_directory(args[0])
+            self._bd.find_preexisting_files()
         
         if options.seed:
             self._bd.set_seed(int(options.seed))
@@ -623,11 +627,9 @@ class Application:
         """Execute the desired operations"""
         try:
             options, args = self._clp.parse(self._args)
-            
+
             if len(args) != 1:
                 raise NeedExactlyOneDirectoryName()
-
-            self._bd.set_directory(args[0])
             
             if options.delete:
                 self._bd.delete_files(options.delete)
