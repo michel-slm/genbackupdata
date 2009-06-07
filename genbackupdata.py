@@ -18,7 +18,7 @@
 """Generate backup test data"""
 
 
-import md5
+import hashlib
 import optparse
 import os
 import random
@@ -264,8 +264,8 @@ class BackupData:
         # Pentium M, it generates around 6 MB/s.
 
         chunks = []
-        sum = md5.new()
-        chunk_size = md5.digest_size
+        sum = hashlib.md5()
+        chunk_size = len(sum.digest())
     
         initial_bytes = min(size, chunk_size * 8)
         for i in range(initial_bytes / chunk_size):
