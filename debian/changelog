@@ -1,6 +1,7 @@
 genbackupdata (1.1) karmic; urgency=low
 
   * New upstream version.
+  * Convert packaging to be native, and use dh.
 
  -- Lars Wirzenius <liw@liw.fi>  Sat, 20 Mar 2010 18:44:05 +1300
 

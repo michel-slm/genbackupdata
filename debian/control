@@ -3,13 +3,12 @@ Maintainer: Lars Wirzenius <liw@iki.fi>
 Section: devel
 Priority: optional
 Standards-Version: 3.7.2
-Build-Depends: cdbs (>= 0.4.43), debhelper (>= 5.0.38), 
-    python-central (>= 0.5.6), python
+Build-Depends: debhelper (>= 7.3.8), python-support (>= 1.0.3), python (>= 2.5)
 XS-Python-Version: all
 
 Package: genbackupdata
 Architecture: all
-Depends: ${python:Depends}
+Depends: ${python:Depends}, ${misc:Depends}
 XB-Python-Version: ${python:Versions}
 Description: generate test data sets for backup software
  genbackupdata creates or modifies directory trees in ways that simulate
