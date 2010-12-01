@@ -4,8 +4,7 @@
 import random
 import gc
 import timeit
-import md5
-import sha
+import hashlib
 import zlib
 
 
@@ -28,7 +27,7 @@ def getrandbits(size):
 def md5ofgetrandbits(size):
     """catenate successive MD5 of random byte stream"""
     chunks = []
-    sum = md5.new()
+    sum = hashlib.md5()
     while size > 0:
         sum.update(chr(random.getrandbits(8)))
         chunk = sum.digest()
@@ -42,7 +41,7 @@ def md5ofgetrandbits(size):
 def md5ofgetrandbits2(size):
     """catenate successive MD5 of random byte stream"""
     chunks = []
-    sum = md5.new()
+    sum = hashlib.md5()
     for i in range(size/16):
         sum.update(chr(random.getrandbits(8)))
         chunk = sum.digest()
@@ -57,7 +56,7 @@ def md5ofgetrandbits2(size):
 def sha1ofgetrandbits(size):
     """catenate successive SHA1 of random byte stream"""
     chunks = []
-    sum = sha.new()
+    sum = hashlib.sha1()
     while size > 0:
         sum.update(chr(random.getrandbits(8)))
         chunk = sum.digest()
@@ -71,8 +70,8 @@ def sha1ofgetrandbits(size):
 def sha1ofgetrandbits2(size):
     """catenate successive SHA1 of random byte stream"""
     chunks = []
-    sum = sha.new()
-    chunk_size = 20
+    sum = hashlib.sha1()
+    chunk_size = len(sum.digest())
     for i in range(size / chunk_size):
         sum.update(chr(random.getrandbits(8)))
         chunk = sum.digest()
@@ -87,7 +86,7 @@ def sha1ofgetrandbits2(size):
 def md5ofrandomandstatic(size):
     """MD5 first of random byte stream, then constant"""
     chunks = []
-    sum = md5.new()
+    sum = hashlib.md5()
 
     initial_size = 128
     while size > 0 and initial_size > 0:
@@ -111,8 +110,8 @@ def md5ofrandomandstatic(size):
 def md5ofrandomandstatic2(size):
     """MD5 first of random byte stream, then constant"""
     chunks = []
-    sum = md5.new()
-    chunk_size = md5.digest_size
+    sum = hashlib.md5()
+    chunk_size = len(sum.digest())
 
     initial_bytes = min(size, chunk_size * 8)
     for i in range(initial_bytes / chunk_size):
@@ -134,8 +133,8 @@ def md5ofrandomandstatic2(size):
 def sha1ofrandomandstatic2(size):
     """SHA1 first of random byte stream, then constant"""
     chunks = []
-    sum = sha.new()
-    chunk_size = 20
+    sum = hashlib.sha1()
+    chunk_size = len(sum.digest())
 
     initial_bytes = min(size, 128)
     for i in range(initial_bytes / chunk_size):
