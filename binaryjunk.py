@@ -72,8 +72,8 @@ def sha1ofgetrandbits2(size):
     chunks = []
     sum = hashlib.sha1()
     chunk_size = len(sum.digest())
-    for i in xrange(size / chunk_size):
-        sum.update(chr(random.getrandbits(8)))
+    for byte in [chr(random.getrandbits(8)) for i in xrange(size / chunk_size)]:
+        sum.update(byte)
         chunk = sum.digest()
         chunks.append(chunk)
     if size % chunk_size > 0:
