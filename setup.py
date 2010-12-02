@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(name='genbackupdata',
-      version='1.0',
+      version='1.2',
       description='Generate test data for backup software',
       long_description='''\
 genbackupdata creates or modifies directory trees in ways that simulate

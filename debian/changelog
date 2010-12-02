@@ -1,3 +1,13 @@
+genbackupdata (1.2) squeeze; urgency=low
+
+  * New upstream release. This release uses a new way to generate binary
+    junk, which is faster than the previous one, and does not result in
+    repetition of existing binary blocks. Obnam is now so good in
+    noticing duplication that it would store a one gigabyte data set
+    from genbackupdata in 132 kilobytes.
+
+ -- Lars Wirzenius <liw@liw.fi>  Thu, 02 Dec 2010 15:17:05 +0000
+
 genbackupdata (1.1.1) squeeze; urgency=low
 
   * Upload to my squeeze repository.
