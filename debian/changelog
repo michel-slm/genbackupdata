@@ -5,6 +5,7 @@ genbackupdata (1.2) squeeze; urgency=low
     repetition of existing binary blocks. Obnam is now so good in
     noticing duplication that it would store a one gigabyte data set
     from genbackupdata in 132 kilobytes.
+  * Update my e-mail address in Maintainer.
 
  -- Lars Wirzenius <liw@liw.fi>  Thu, 02 Dec 2010 15:17:05 +0000
 
