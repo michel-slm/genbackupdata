@@ -260,28 +260,33 @@ class BackupData:
         """Generate SIZE bytes of more or less random binary junk"""
         
         # The following code has had some fine manual fine tuning done
-        # to it. This has made it ugly, but faster. On a 1.2 MHz Intel
-        # Pentium M, it generates around 6 MB/s.
+        # to it. This has made it a bit ugly, but faster. On a 
+        # "Intel(R) Core(TM)2 Duo CPU L9400 @ 1.86GHz", it produces
+        # about 25 MB/s.
 
         chunks = []
-        sum = hashlib.md5()
+        sum = hashlib.sha1()
         chunk_size = len(sum.digest())
-    
-        initial_bytes = min(size, chunk_size * 8)
+
+        initial_bytes = min(size, 128)
         for i in range(initial_bytes / chunk_size):
             sum.update(chr(random.getrandbits(8)))
-            chunks.append(sum.digest())
-    
+            chunk = sum.digest()
+            chunks.append(chunk)
+
         size -= len(chunks) * chunk_size
         for i in range(size / chunk_size):
             sum.update("a")
-            chunks.append(sum.digest())
-    
+            chunk = sum.digest()
+            chunks.append(chunk)
+
         if size % chunk_size > 0:
             sum.update(chr(random.getrandbits(8)))
-            chunks.append(sum.digest()[:size % chunk_size])
-    
+            chunk = sum.digest()
+            chunks.append(chunk[:size % chunk_size])
+
         return "".join(chunks)
+
 
     def generate_binary_data(self, size):
         """Generate SIZE bytes of binary junk.
