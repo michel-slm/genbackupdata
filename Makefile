@@ -5,7 +5,7 @@ check:
 #	./blackboxtest
 
 clean:
-	rm -rf *.pyc *.pyo build dist MANIFEST 
+	rm -rf *.py[co] */*.py[co] build dist MANIFEST 
 	rm -f blackboxtest.log blackboxtest-genbackupdata.log
 
 dist:
