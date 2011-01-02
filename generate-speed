@@ -1,0 +1,70 @@
+#!/usr/bin/python
+# Copyright 2010  Lars Wirzenius
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+import cProfile
+import sys
+import time
+
+import genbackupdatalib
+
+
+def measure(repeats, func, arg, do_profile, profname):
+    def helper():
+        for i in range(repeats):
+            func(arg)
+
+    print 'measuring', profname
+    start_time = time.time()
+    start = time.clock()
+    if do_profile:
+        globaldict = globals().copy()
+        localdict = locals().copy()
+        cProfile.runctx('helper()', globaldict, localdict, 
+                        '%s.prof' % profname)
+    else:
+        helper()
+    end = time.clock()
+    end_time = time.time()
+    return end - start, end_time - start_time
+    
+
+def nop(size):
+    pass
+    
+
+def main():
+    repeats = int(sys.argv[1])
+    size1 = int(sys.argv[2])
+    do_profile = sys.argv[3] == 'yes'
+    looptime = measure(repeats, nop, None, do_profile, 'calibrate')
+
+    g = genbackupdatalib.DataGenerator(0)
+    result = measure(repeats, g.generate, size1, do_profile, 'generate')
+    
+    def speed(result, i):
+        total_data = repeats * size1
+        return total_data / (result[i] - looptime[i])
+    def humansize(size):
+        return '%4.1f MiB/s' % (size / 1024 / 1024)
+    def report(label, result):
+        cpu, wall = result
+        print '%-12s: %5.3f s (%8s)' % \
+            (label, cpu, humansize(speed(result, 0)))
+    report('generate', result)
+    
+if __name__ == '__main__':
+    main()
