@@ -1,11 +1,8 @@
 all:
 
 check:
-	python-coverage -e
-	python-coverage -x tests.py
-	python-coverage -r -m -o /usr,/var | \
-	    awk '{ print } /^TOTAL/ && $$2 != $$3 {exit 1}'
-	./blackboxtest
+	python -m CoverageTestRunner --ignore-missing without-tests
+#	./blackboxtest
 
 clean:
 	rm -rf *.pyc *.pyo build dist MANIFEST 
