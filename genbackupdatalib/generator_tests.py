@@ -33,3 +33,10 @@ class DataGeneratorTests(unittest.TestCase):
         amount = 1024
         g3 = genbackupdatalib.DataGenerator(1)
         self.assertNotEqual(self.g1.generate(amount), g3.generate(amount))
+        
+    def test_returns_distinct_64k_chunks(self):
+        size = 64 * 1024
+        chunk1 = self.g1.generate(size)
+        num_chunks = 100
+        for i in range(num_chunks):
+            self.assertNotEqual(self.g1.generate(size), chunk1)
