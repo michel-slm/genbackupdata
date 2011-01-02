@@ -32,8 +32,6 @@ import tempfile
 import traceback
 import unittest
 
-import obnamlib
-
 
 class GenbackupdataTestCase(unittest.TestCase):
 
@@ -63,6 +61,9 @@ class GenbackupdataTestCase(unittest.TestCase):
 
     def tearDownHook(self):
         pass
+
+    def path(self, *relatives):
+        return os.path.join(self.tempdir, *relatives)
 
     def mkdir(self, dirname):
         abs_dirname = os.path.join(self.tempdir, dirname)
@@ -153,15 +154,17 @@ class GenbackupdataTestCase(unittest.TestCase):
                 result.append(self.get_info(root, pathname))
         return [x for x in result if x]
 
-    def open_store(self):
-        '''Open the store.'''
-
-        fs = obnamlib.LocalFS(self.store)
-        s = obnamlib.Store(fs, obnamlib.DEFAULT_NODE_SIZE,
-                           obnamlib.DEFAULT_UPLOAD_QUEUE_SIZE,
-                           obnamlib.DEFAULT_LRU_SIZE)
-        s.open_client(self.client_name)
-        return s
+    def apparent_size(self, root):
+        '''Return sum of length of regular files in directory, recursively.'''
+        
+        size = 0
+        for dirname, subdirs, filenames in os.walk(self.path(root)):
+            for filename in filenames:
+                pathname = self.path(dirname, filename)
+                st = os.lstat(pathname)
+                if stat.S_ISREG(st.st_mode):
+                    size += st.st_size
+        return size
 
     def assert_equal_stat_fields(self, filename, stat1, stat2, fieldname):
         field1 = getattr(stat1, fieldname)
@@ -232,6 +235,11 @@ class GenbackupdataTests(GenbackupdataTestCase):
     def test_returns_success_with_help_option(self):
         self.genbackupdata(['--help'])
         self.assertTrue(True)
+        
+    def test_creates_requested_amount_of_data(self):
+        kilobytes = 4096
+        self.genbackupdata([self.path('data'), '--create=%dk' % kilobytes])
+        self.assertEqual(self.apparent_size('data'), kilobytes * 1024)
 
 
 if __name__ == '__main__':
