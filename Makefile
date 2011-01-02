@@ -1,7 +1,7 @@
 all:
 
 check:
-	python -m CoverageTestRunner --ignore-missing without-tests
+	python -m CoverageTestRunner --ignore-missing-from without-tests
 #	./blackboxtest
 
 clean:
