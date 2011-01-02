@@ -20,6 +20,7 @@
 '''Run some black box tests for genbackupdata.'''
 
 
+import hashlib
 import logging
 import os
 import random
@@ -166,6 +167,33 @@ class GenbackupdataTestCase(unittest.TestCase):
                     size += st.st_size
         return size
 
+    def checksum(self, pathname):
+        '''Return MD5 checksum for contents of a file.'''
+        s = hashlib.new('md5')
+        f = open(pathname, 'rb')
+        while True:
+            data = f.read(64*1024)
+            if not data:
+                break
+            s.update(data)
+        f.close()
+        return s.hexdigest()
+
+    def checksums(self, root):
+        '''Return sorted list of (pathname, checksum) pairs for reg. files.'''
+        result = []
+        prefix = self.path(root) + os.sep
+        for dirname, subdirs, filenames in os.walk(self.path(root)):
+            for filename in filenames:
+                pathname = self.path(dirname, filename)
+                st = os.lstat(pathname)
+                if stat.S_ISREG(st.st_mode):
+                    assert pathname.startswith(prefix)
+                    relative = pathname[len(prefix):]
+                    result.append((relative, self.checksum(pathname)))
+        result.sort()
+        return result
+
     def assert_equal_stat_fields(self, filename, stat1, stat2, fieldname):
         field1 = getattr(stat1, fieldname)
         field2 = getattr(stat2, fieldname)
@@ -241,6 +269,15 @@ class GenbackupdataTests(GenbackupdataTestCase):
         self.genbackupdata([self.path('data'), '--create=%d' % bytes])
         self.assertEqual(self.apparent_size('data'), bytes)
 
+    def test_creates_same_data_every_time(self):
+        size = '10m' # big enough to allow both ample text and binary data
+        self.genbackupdata([self.path('data1'), '--create', size])
+        self.genbackupdata([self.path('data2'), '--create', size])
+        sums1 = self.checksums('data1')
+        sums2 = self.checksums('data2')
+        self.assertEqual(len(sums1), len(sums2))
+        for n in range(1, len(sums1)):
+            self.assertEqual(sums1[:n], sums2[:n])
 
 if __name__ == '__main__':
     logging.basicConfig(filename='blackboxtest.log',
