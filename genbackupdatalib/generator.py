@@ -14,7 +14,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-version = '1.3'
+class DataGenerator(object):
 
-from generator import DataGenerator
+    '''Generate random binary data.'''
+    
+    def __init__(self, seed):
+        pass
+        
+    def generate(self, size):
+        return ''
 

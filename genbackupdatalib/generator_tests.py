@@ -14,7 +14,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-version = '1.3'
+import unittest
 
-from generator import DataGenerator
+import genbackupdatalib
 
+
+class DataGeneratorTests(unittest.TestCase):
+
+    def setUp(self):
+        self.g1 = genbackupdatalib.DataGenerator(0)
+        self.g2 = genbackupdatalib.DataGenerator(0)
+        
+    def test_every_generator_returns_same_sequence(self):
+        amount = 1024
+        self.assertEqual(self.g1.generate(amount), self.g2.generate(amount))
+        
+    def test_returns_different_sequence_for_different_seed(self):
+        amount = 1024
+        g3 = genbackupdatalib.DataGenerator(1)
+        self.assertNotEqual(self.g1.generate(amount), g3.generate(amount))
