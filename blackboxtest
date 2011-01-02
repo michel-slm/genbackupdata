@@ -237,7 +237,7 @@ class GenbackupdataTests(GenbackupdataTestCase):
         self.assertTrue(True)
         
     def test_creates_requested_amount_of_data(self):
-        kilobytes = 4096
+        kilobytes = 12765
         self.genbackupdata([self.path('data'), '--create=%dk' % kilobytes])
         self.assertEqual(self.apparent_size('data'), kilobytes * 1024)
 
