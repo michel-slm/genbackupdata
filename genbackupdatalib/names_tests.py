@@ -31,7 +31,31 @@ class NameGeneratorTests(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.tempdir)
 
-    def test_generates_name_that_does_not_exist(self):
+    def test_generates_name_that_is_inside_target_directory(self):
         name = self.names.new()
-        self.assertFalse(os.path.exists(name))
+        self.assert_(name.startswith(self.tempdir + os.sep))
+
+    def test_generates_different_names_every_time(self):
+        names = set(self.names.new() for i in range(10))
+        self.assertEqual(len(names), 10)
+
+    def test_generates_names_that_do_not_exist(self):
+        for i in range(10):
+            name = self.names.new()
+            self.assertFalse(os.path.exists(name))
+
+    def test_generates_the_same_sequence_with_every_instance(self):
+        n = 10
+        first = [self.names.new() for i in range(n)]
+        names2 = genbackupdatalib.NameGenerator(self.tempdir)
+        second = [names2.new() for i in range(n)]
+        self.assertEqual(first, second)
+
+    def test_does_not_generate_names_of_existing_files(self):
+        name = self.names.new()
+        file(name, 'w').close()
+        names2 = genbackupdatalib.NameGenerator(self.tempdir)
+        name2 = names2.new()
+        self.assertNotEqual(name, name2)
+        self.assertFalse(os.path.exists(name2))
 

@@ -14,12 +14,23 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+import os
+
+
 class NameGenerator(object):
 
     '''Generate names for new output files.'''
     
     def __init__(self, dirname):
         self.dirname = dirname
-
+        self.counter = 0
+        
+    def _next_candidate_name(self):
+        self.counter += 1
+        return os.path.join(self.dirname, 'file%d' % self.counter)
+        
     def new(self):
-        return 'foo'
+        while True:
+            name = self._next_candidate_name()
+            if not os.path.exists(name):
+                return name
