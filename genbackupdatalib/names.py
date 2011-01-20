@@ -1,4 +1,4 @@
-# Copyright 2010  Lars Wirzenius
+# Copyright 2011  Lars Wirzenius
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,7 +14,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-version = '1.3'
+class NameGenerator(object):
 
-from generator import DataGenerator
-from names import NameGenerator
+    '''Generate names for new output files.'''
+    
+    def __init__(self, dirname):
+        self.dirname = dirname
+
+    def new(self):
+        return 'foo'
