@@ -19,11 +19,48 @@ import os
 
 class NameGenerator(object):
 
-    '''Generate names for new output files.'''
+    '''Generate names for new output files.
     
-    def __init__(self, dirname):
+    If the target directory is empty, the sequence of output files is
+    always the same for the same parameters.
+    
+    A directory structure is also generated. The shape of the tree is
+    defined by two parameters: 'max' and 'depth'. 'depth' is the number
+    of levels of subdirectories to create, and 'max' is the maximum
+    number of files/dirs to allow per output directory. Thus, if max is
+    3 and depth is 2, the output files are: 0/0/0, 0/0/1, 0/0/2,
+    0/1/0, 0/1/1, etc.
+    
+    If depth is zero, all output files go directly to the target
+    directory, and max is ignored.
+    
+    '''
+    
+    def __init__(self, dirname, depth, max):
         self.dirname = dirname
+        self.depth = depth
+        self.max = max
         self.counter = 0
+        
+    def _path_tuple(self, n):
+        '''Return tuple for dir/file numbers for nth output file.
+        
+        The last item in the tuple gives the file number, the precding
+        items the directory numbers. Thus, a tuple (1, 2, 3) would
+        mean path '1/2/3', but it is given as a tuple for easier
+        manipulation.
+        
+        '''
+        
+        if self.depth == 0:
+            return (n,)
+        else:
+            items = []
+            for i in range(self.depth + 1): # +1 for filenames
+                items.append(n % self.max)
+                n /= self.max
+            items.reverse()
+        return tuple(items)
         
     def _next_candidate_name(self):
         self.counter += 1

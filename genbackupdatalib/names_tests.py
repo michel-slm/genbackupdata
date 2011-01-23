@@ -26,10 +26,16 @@ class NameGeneratorTests(unittest.TestCase):
 
     def setUp(self):
         self.tempdir = tempfile.mkdtemp()
-        self.names = genbackupdatalib.NameGenerator(self.tempdir)
+        self.depth = 2
+        self.max = 3
+        self.names = self.new()
         
     def tearDown(self):
         shutil.rmtree(self.tempdir)
+        
+    def new(self):
+        return genbackupdatalib.NameGenerator(self.tempdir, self.depth,
+                                              self.max)
 
     def test_generates_name_that_is_inside_target_directory(self):
         name = self.names.new()
@@ -47,15 +53,29 @@ class NameGeneratorTests(unittest.TestCase):
     def test_generates_the_same_sequence_with_every_instance(self):
         n = 10
         first = [self.names.new() for i in range(n)]
-        names2 = genbackupdatalib.NameGenerator(self.tempdir)
+        names2 = self.new()
         second = [names2.new() for i in range(n)]
         self.assertEqual(first, second)
 
     def test_does_not_generate_names_of_existing_files(self):
         name = self.names.new()
         file(name, 'w').close()
-        names2 = genbackupdatalib.NameGenerator(self.tempdir)
+        names2 = self.new()
         name2 = names2.new()
         self.assertNotEqual(name, name2)
         self.assertFalse(os.path.exists(name2))
+
+    def test_converts_file_sequence_number_into_right_path_tuple(self):
+        self.assertEqual(self.names._path_tuple(0), (0, 0, 0))
+        self.assertEqual(self.names._path_tuple(1), (0, 0, 1))
+        self.assertEqual(self.names._path_tuple(2), (0, 0, 2))
+        self.assertEqual(self.names._path_tuple(3), (0, 1, 0))
+        self.assertEqual(self.names._path_tuple(4), (0, 1, 1))
+        self.assertEqual(self.names._path_tuple(5), (0, 1, 2))
+        self.assertEqual(self.names._path_tuple(6), (0, 2, 0))
+        self.assertEqual(self.names._path_tuple(9), (1, 0, 0))
+
+    def test_returns_1tuple_for_depth_zero(self):
+        names = genbackupdatalib.NameGenerator(self.tempdir, 0, 1)
+        self.assertEqual(names._path_tuple(42), (42,))
 
