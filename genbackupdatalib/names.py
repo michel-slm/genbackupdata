@@ -56,9 +56,10 @@ class NameGenerator(object):
             return (n,)
         else:
             items = []
-            for i in range(self.depth + 1): # +1 for filenames
+            for i in range(self.depth):
                 items.append(n % self.max)
                 n /= self.max
+            items.append(n)
             items.reverse()
         return tuple(items)
         
