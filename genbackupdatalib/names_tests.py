@@ -59,6 +59,7 @@ class NameGeneratorTests(unittest.TestCase):
 
     def test_does_not_generate_names_of_existing_files(self):
         name = self.names.new()
+        os.makedirs(os.path.dirname(name))
         file(name, 'w').close()
         names2 = self.new()
         name2 = names2.new()

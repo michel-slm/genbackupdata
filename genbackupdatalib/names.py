@@ -63,8 +63,9 @@ class NameGenerator(object):
         return tuple(items)
         
     def _next_candidate_name(self):
+        items = self._path_tuple(self.counter)
         self.counter += 1
-        return os.path.join(self.dirname, 'file%d' % self.counter)
+        return os.path.join(self.dirname, *[str(i) for i in items])
         
     def new(self):
         while True:
