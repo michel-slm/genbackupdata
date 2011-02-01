@@ -97,7 +97,7 @@ class GenbackupdataTestCase(unittest.TestCase):
 
     def genbackupdata(self, args, stderr_ignore=None):
         '''Run genbackupdata, with some default arguments.'''
-        return self.runcmd(['./genbackupdata'] +
+        return self.runcmd(['./genbackupdata', '--quiet'] +
                            args, stderr_ignore=stderr_ignore)
 
     def create_file(self, dirname, relative, contents):
