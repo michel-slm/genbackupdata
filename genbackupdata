@@ -46,6 +46,7 @@ class GenbackupdataApp(cliapp.Application):
                                  'seed for random number generator '
                                  '(default: %default)',
                                  default=0)
+        self.add_boolean_setting(['quiet'], 'do not report progress')
         
     def process_args(self, args):
         outputdir = args[0]
@@ -86,6 +87,8 @@ class GenbackupdataApp(cliapp.Application):
         
     def setup_ttystatus(self):
         self.status = ttystatus.TerminalStatus(period=0.1)
+        if self['quiet']:
+            self.status.disable()
         self.status['written'] = 0
         self.status['total'] = 0
         self.status.add(ttystatus.Literal('Generating: '))
