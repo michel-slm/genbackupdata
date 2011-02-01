@@ -1,3 +1,11 @@
+genbackupdata (1.3) squeeze; urgency=low
+
+  * New upstream release. This is a rewrite. It is not as functional
+    as the old code. But it is functional enough, and I'm the only
+    known user, so...
+
+ -- Lars Wirzenius <liw@liw.fi>  Tue, 01 Feb 2011 21:50:34 +0000
+
 genbackupdata (1.2) squeeze; urgency=low
 
   * New upstream release. This release uses a new way to generate binary
