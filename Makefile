@@ -2,7 +2,7 @@ all:
 
 check:
 	python -m CoverageTestRunner --ignore-missing-from without-tests
-#	./blackboxtest
+	./blackboxtest
 
 clean:
 	rm -rf *.py[co] */*.py[co] build dist MANIFEST 
