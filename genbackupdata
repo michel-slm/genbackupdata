@@ -76,7 +76,7 @@ class GenbackupdataApp(cliapp.Application):
             self.write_bytes(f, chunk_size)
             bytes -= chunk_size
         if bytes > 0:
-            self.write(f, bytes)
+            self.write_bytes(f, bytes)
         f.close()
 
     def write_bytes(self, f, bytes):
@@ -101,4 +101,4 @@ class GenbackupdataApp(cliapp.Application):
 
 if __name__ == '__main__':
     GenbackupdataApp().run()
-	
+
