@@ -1,3 +1,10 @@
+genbackupdata (1.3.1) squeeze; urgency=low
+
+  * New upstream release.
+    - include genbackupdatalib in the package
+
+ -- Lars Wirzenius <liw@liw.fi>  Wed, 02 Feb 2011 17:25:16 +0000
+
 genbackupdata (1.3) squeeze; urgency=low
 
   * New upstream release. This is a rewrite. It is not as functional

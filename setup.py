@@ -31,7 +31,7 @@ benchmark backup software than distributing very large test sets.
         'Topic :: Software Development :: Testing',
         'Topic :: System :: Archiving :: Backup',
       ],
-      license='GNU General Public License, version 2 or later',
-      py_modules=['genbackupdata'],
+      license='GNU General Public License, version 3 or later',
+      packages=['genbackupdatalib'],
       scripts=['genbackupdata'],
      )
