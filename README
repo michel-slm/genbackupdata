@@ -17,16 +17,16 @@ benchmark backup software than distributing very large test sets.
 Also included are a couple of benchmark programs I've written to measure
 aspects of the work genbackupdata does:
 
-    * binaryjunk.py compares various ways of generating random binary data
-    
-    * createfiles.py compares various directory structures when creating
-      lots of new files
+* binaryjunk.py compares various ways of generating random binary data
 
-The home page is: http://braawi.org/genbackupdata.html
+* createfiles.py compares various directory structures when creating
+  lots of new files
+
+The home page is: http://braawi.org/genbackupdata/
 
 Legalese:
 
-  Copyright (C) 2007  Lars Wirzenius <liw@iki.fi>
+  Copyright (C) 2007-2011  Lars Wirzenius <liw@iki.fi>
  
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
