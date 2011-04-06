@@ -26,39 +26,40 @@ import genbackupdatalib
 class GenbackupdataApp(cliapp.Application):
 
     def add_settings(self):
-        self.add_bytesize_setting(['create', 'c'], 
+        self.settings.add_bytesize_setting(['create', 'c'], 
                                   'how much data to create '
                                   '(default: %default)')
-        self.add_bytesize_setting(['file-size'], 
+        self.settings.add_bytesize_setting(['file-size'], 
                                   'size of one file (default: %default)',
                                   default=16*1024)
-        self.add_bytesize_setting(['chunk-size'], 
+        self.settings.add_bytesize_setting(['chunk-size'], 
                                   'generate data in chunks of this size '
                                   '(default: %default)',
                                   default=16*1024)
-        self.add_integer_setting(['depth'], 
+        self.settings.add_integer_setting(['depth'], 
                                  'depth of directory tree (default: %default)',
                                  default=3)
-        self.add_integer_setting(['max-files'], 
+        self.settings.add_integer_setting(['max-files'], 
                                  'max files/dirs per dir (default: %default)',
                                  default=128)
-        self.add_integer_setting(['seed'], 
+        self.settings.add_integer_setting(['seed'], 
                                  'seed for random number generator '
                                  '(default: %default)',
                                  default=0)
-        self.add_boolean_setting(['quiet'], 'do not report progress')
+        self.settings.add_boolean_setting(['quiet'], 'do not report progress')
         
     def process_args(self, args):
         outputdir = args[0]
-        bytes = self['create']
-        self.gen = genbackupdatalib.DataGenerator(self['seed'])
-        self.names = genbackupdatalib.NameGenerator(outputdir, self['depth'],
-                                                    self['max-files'])
+        bytes = self.settings['create']
+        self.gen = genbackupdatalib.DataGenerator(self.settings['seed'])
+        self.names = genbackupdatalib.NameGenerator(outputdir, 
+                                                    self.settings['depth'],
+                                                    self.settings['max-files'])
         
         self.setup_ttystatus()
         self.status['total'] = bytes
         while bytes > 0:
-            n = min(self['file-size'], bytes)
+            n = min(self.settings['file-size'], bytes)
             self.create_file(n)
             bytes -= n
         self.status.finish()
@@ -66,8 +67,8 @@ class GenbackupdataApp(cliapp.Application):
     def create_file(self, bytes):
         '''Generate one output file.'''
         
-        file_size = self['file-size']
-        chunk_size = self['chunk-size']
+        file_size = self.settings['file-size']
+        chunk_size = self.settings['chunk-size']
         pathname = self.names.new()
         dirname = os.path.dirname(pathname)
         if not os.path.exists(dirname):
@@ -87,7 +88,7 @@ class GenbackupdataApp(cliapp.Application):
         
     def setup_ttystatus(self):
         self.status = ttystatus.TerminalStatus(period=0.1)
-        if self['quiet']:
+        if self.settings['quiet']:
             self.status.disable()
         self.status['written'] = 0
         self.status['total'] = 0
