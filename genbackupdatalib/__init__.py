@@ -18,3 +18,5 @@ version = '1.3'
 
 from generator import DataGenerator
 from names import NameGenerator
+
+__all__ = locals()
