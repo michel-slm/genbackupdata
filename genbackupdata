@@ -26,27 +26,26 @@ import genbackupdatalib
 class GenbackupdataApp(cliapp.Application):
 
     def add_settings(self):
-        self.settings.add_bytesize_setting(['create', 'c'], 
-                                  'how much data to create '
-                                  '(default: %default)')
-        self.settings.add_bytesize_setting(['file-size'], 
-                                  'size of one file (default: %default)',
-                                  default=16*1024)
-        self.settings.add_bytesize_setting(['chunk-size'], 
-                                  'generate data in chunks of this size '
-                                  '(default: %default)',
-                                  default=16*1024)
-        self.settings.add_integer_setting(['depth'], 
-                                 'depth of directory tree (default: %default)',
-                                 default=3)
-        self.settings.add_integer_setting(['max-files'], 
-                                 'max files/dirs per dir (default: %default)',
-                                 default=128)
-        self.settings.add_integer_setting(['seed'], 
-                                 'seed for random number generator '
+        self.settings.bytesize(['create', 'c'], 
+                               'how much data to create (default: %default)')
+        self.settings.bytesize(['file-size'], 
+                               'size of one file (default: %default)',
+                               default=16*1024)
+        self.settings.bytesize(['chunk-size'], 
+                               'generate data in chunks of this size '
                                  '(default: %default)',
-                                 default=0)
-        self.settings.add_boolean_setting(['quiet'], 'do not report progress')
+                               default=16*1024)
+        self.settings.integer(['depth'], 
+                              'depth of directory tree (default: %default)',
+                              default=3)
+        self.settings.integer(['max-files'], 
+                              'max files/dirs per dir (default: %default)',
+                              default=128)
+        self.settings.integer(['seed'], 
+                              'seed for random number generator '
+                                '(default: %default)',
+                              default=0)
+        self.settings.boolean(['quiet'], 'do not report progress')
         
     def process_args(self, args):
         outputdir = args[0]
