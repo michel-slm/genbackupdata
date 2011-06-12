@@ -1,7 +1,9 @@
 from distutils.core import setup
 
+import genbackupdatalib
+
 setup(name='genbackupdata',
-      version='1.3',
+      version=genbackupdatalib.__version__,
       description='Generate test data for backup software',
       long_description='''\
 genbackupdata creates or modifies directory trees in ways that simulate
@@ -19,7 +21,7 @@ benchmark backup software than distributing very large test sets.
 ''',
       author='Lars Wirzenius',
       author_email='liw@iki.fi',
-      url='http://braawi.org/genbackupdata.html',
+      url='http://braawi.org/genbackupdata/',
       classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',

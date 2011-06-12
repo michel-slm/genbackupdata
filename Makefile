@@ -8,5 +8,3 @@ clean:
 	rm -rf *.py[co] */*.py[co] build dist MANIFEST 
 	rm -f blackboxtest.log blackboxtest-genbackupdata.log
 
-dist:
-	python setup.py sdist

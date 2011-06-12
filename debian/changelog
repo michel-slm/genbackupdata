@@ -1,3 +1,10 @@
+genbackupdata (1.5) squeeze; urgency=low
+
+  * New upstream version.
+  * Bump Standards-Version. No other changes required.
+
+ -- Lars Wirzenius <liw@liw.fi>  Sun, 12 Jun 2011 12:55:28 +0100
+
 genbackupdata (1.4) squeeze; urgency=low
 
   * debian/control: Add dependency on python-cliapp.
