@@ -1,3 +1,12 @@
+genbackupdata (1.6-1) unstable; urgency=low
+
+  * First upload to Debian. (Closes: #636445)
+  * New upstream version.
+  * Add missing Depends and Build-Depens on python-ttystatus.
+  * Remove useless debian/pycompat.
+
+ -- Lars Wirzenius <liw@liw.fi>  Mon, 22 Aug 2011 09:10:28 +0100
+
 genbackupdata (1.5) squeeze; urgency=low
 
   * New upstream version.
