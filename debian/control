@@ -11,6 +11,7 @@ Package: genbackupdata
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}, python-cliapp (>= 0.9),
     python-ttystatus
+Homepage: http://braawi.org/genbackupdata/
 Description: generate test data sets for backup software
  genbackupdata creates or modifies directory trees in ways that simulate
  real filesystems sufficiently well for performance testing of backup
