@@ -36,4 +36,5 @@ benchmark backup software than distributing very large test sets.
       license='GNU General Public License, version 3 or later',
       packages=['genbackupdatalib'],
       scripts=['genbackupdata'],
+      data_files=[('usr/share/man/man1', ['genbackupdata.1'])],
      )
