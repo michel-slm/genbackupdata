@@ -6,6 +6,7 @@ genbackupdata (1.6-1) unstable; urgency=low
   * Remove useless debian/pycompat.
   * Use 3.0 (quilt) format.
   * Add Homapage header.
+  * Use DEP5 for debian/copyright.
 
  -- Lars Wirzenius <liw@liw.fi>  Mon, 22 Aug 2011 09:10:28 +0100
 
