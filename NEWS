@@ -1,6 +1,12 @@
 NEWS for genbackupdata
 ======================
 
+Version 1.6, released 2011-08-22
+--------------------------------
+
+* Manual page's SYNOPSIS and OPTIONS sections are now generated automatically
+  by cliapp's `--generate-manpage`.
+
 Version 1.5, released 2011-06-12
 --------------------------------
 
