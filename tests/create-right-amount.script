@@ -17,7 +17,7 @@
 set -e
 
 data="$DATADIR/create-right-amount"
-./genbackupdata --create=12765 "$data"
+./genbackupdata --quiet --create=12765 "$data"
 find "$DATADIR" -type f -print0 | 
     du --files0-from=- -cs --bytes --apparent-size |
     tail -n1
