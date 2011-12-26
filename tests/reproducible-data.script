@@ -16,8 +16,9 @@
 
 set -e
 
+amount=1m
 data1="$DATADIR/reproducible-data-1"
 data2="$DATADIR/reproducible-data-2"
-./genbackupdata --create=12765 "$data1"
-./genbackupdata --create=12765 "$data2"
+./genbackupdata --create="$amount" "$data1"
+./genbackupdata --create="$amount" "$data2"
 diff -rq "$data1" "$data2"
