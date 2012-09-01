@@ -4,7 +4,7 @@ Section: devel
 Priority: optional
 Standards-Version: 3.9.2
 Build-Depends: debhelper (>= 7.3.8), python-all (>= 2.6.6-3~),
-    python-ttystatus, python-cliapp
+    python-ttystatus, python-cliapp, cmdtest
 X-Python-Version: >= 2.6
 
 Package: genbackupdata
