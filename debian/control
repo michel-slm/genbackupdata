@@ -1,8 +1,9 @@
 Source: genbackupdata
 Maintainer: Lars Wirzenius <liw@liw.fi>
+Homepage: http://liw.fi/genbackupdata/
 Section: devel
 Priority: optional
-Standards-Version: 3.9.2
+Standards-Version: 3.9.5
 Build-Depends: debhelper (>= 7.3.8), python-all (>= 2.6.6-3~),
     python-ttystatus, python-cliapp, cmdtest
 X-Python-Version: >= 2.6
@@ -11,7 +12,6 @@ Package: genbackupdata
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}, python-cliapp (>= 0.9),
     python-ttystatus
-Homepage: http://liw.fi/genbackupdata/
 Description: generate test data sets for backup software
  genbackupdata creates or modifies directory trees in ways that simulate
  real filesystems sufficiently well for performance testing of backup
