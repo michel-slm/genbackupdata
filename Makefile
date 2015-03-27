@@ -5,6 +5,7 @@ genbackupdata.1: genbackupdata.1.in genbackupdata
 
 check:
 	python -m CoverageTestRunner --ignore-missing-from without-tests
+	rm -f .coverage
 	cmdtest tests
 
 clean:
