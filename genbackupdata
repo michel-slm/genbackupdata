@@ -57,9 +57,8 @@ class GenbackupdataApp(cliapp.Application):
         outputdir = args[0]
         bytes = self.settings['create']
         self.gen = genbackupdatalib.DataGenerator(self.settings['seed'])
-        self.names = genbackupdatalib.NameGenerator(outputdir, 
-                                                    self.settings['depth'],
-                                                    self.settings['max-files'])
+        self.names = genbackupdatalib.NameGenerator(
+            outputdir, self.settings['depth'], self.settings['max-files'])
         
         self.setup_ttystatus()
         self.status['total'] = bytes
@@ -110,4 +109,3 @@ class GenbackupdataApp(cliapp.Application):
 
 if __name__ == '__main__':
     GenbackupdataApp().run()
-
