@@ -77,13 +77,12 @@ class GenbackupdataApp(cliapp.Application):
         dirname = os.path.dirname(pathname)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
-        f = open(pathname, 'wb')
-        while bytes >= chunk_size:
-            self.write_bytes(f, chunk_size)
-            bytes -= chunk_size
-        if bytes > 0:
-            self.write_bytes(f, bytes)
-        f.close()
+        with open(pathname, 'wb') as f:
+            while bytes >= chunk_size:
+                self.write_bytes(f, chunk_size)
+                bytes -= chunk_size
+            if bytes > 0:
+                self.write_bytes(f, bytes)
 
     def write_bytes(self, f, bytes):
         chunk = self.gen.generate(bytes)
