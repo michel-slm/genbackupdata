@@ -96,15 +96,9 @@ class GenbackupdataApp(cliapp.Application):
             self.status.disable()
         self.status['written'] = 0
         self.status['total'] = 0
-        self.status.add(ttystatus.Literal('Generating: '))
-        self.status.add(ttystatus.ByteSize('written'))
-        self.status.add(ttystatus.Literal(' of '))
-        self.status.add(ttystatus.ByteSize('total'))
-        self.status.add(ttystatus.Literal(' '))
-        self.status.add(ttystatus.PercentDone('written', 'total'))
-        self.status.add(ttystatus.Literal(' ('))
-        self.status.add(ttystatus.ByteSpeed('written'))
-        self.status.add(ttystatus.Literal(')'))
+        self.status.format(
+            'Generating %ByteSize(written) of %ByteSize(total) '
+            '%PercentDone(written,total) (%ByteSpeed(written))')
             
 
 if __name__ == '__main__':
