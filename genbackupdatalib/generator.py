@@ -14,49 +14,31 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import random
 import struct
+
+import Crypto.Cipher.ARC4
 
 
 class DataGenerator(object):
 
     '''Generate random binary data.'''
     
-    # We generate data by using a blob of suitable size. The output
-    # sequence repeats the blob, where each repetition is preceded by
-    # a 64-bit counter.
-    #
-    # We need to be relatively prime with obnam's chunk size, which
-    # defaults to 64 KiB (65536 bytes). This is so that obnam does not
-    # notice a lot of duplicated data, resulting in unrealistically
-    # high amounts of compression in the backup store.
-    #
-    # Ideally, we would not generate any repeating data, but the random
-    # number generator is not fast enough for that. We need to generate
-    # data about as fast as the disk can write it, and the random number
-    # generator is orders of magnitude slower than that.
-
-    _blob_size = 65521
-    _blob_size = 1021
+    _data = 'x' * 1024**2
     
     def __init__(self, seed):
-        self._random = random.Random(seed)
-        self._blob = self._generate_blob()
-        self._counter = 0
+        key = struct.pack('!Q', seed)
+        self._arc4 = Crypto.Cipher.ARC4.new(key)
         self._buffer = ''
 
-    def _generate_blob(self):
-        return ''.join(chr(self._random.randint(0, 255))
-                       for i in range(self._blob_size))
-        
     def generate(self, size):
-        while size > len(self._buffer):
-            self._buffer += self._generate_more_data()
+        while len(self._buffer) < size:
+            self._buffer += self._generate_junk()
+        return self._split_off_data(size)
+
+    def _generate_junk(self):
+        return self._arc4.encrypt(self._data)
+
+    def _split_off_data(self, size):
         data = self._buffer[:size]
         self._buffer = self._buffer[size:]
         return data
-
-    def _generate_more_data(self):
-        self._counter += 1
-        return struct.pack('!Q', self._counter) + self._blob
-
