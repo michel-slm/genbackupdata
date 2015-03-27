@@ -26,34 +26,39 @@ import genbackupdatalib
 class GenbackupdataApp(cliapp.Application):
 
     def add_settings(self):
-        self.settings.bytesize(['create', 'c'], 
-                               'how much data to create (default: %default)')
-        self.settings.bytesize(['file-size'], 
-                               'size of one file (default: %default)',
-                               default=16*1024)
-        self.settings.bytesize(['chunk-size'], 
-                               'generate data in chunks of this size '
-                                 '(default: %default)',
-                               default=16*1024)
-        self.settings.integer(['depth'], 
-                              'depth of directory tree (default: %default)',
-                              default=3)
-        self.settings.integer(['max-files'], 
-                              'max files/dirs per dir (default: %default)',
-                              default=128)
-        self.settings.integer(['seed'], 
-                              'seed for random number generator '
-                                '(default: %default)',
-                              default=0)
-        self.settings.boolean(['quiet'], 'do not report progress')
+        self.settings.bytesize(
+            ['create', 'c'], 
+            'how much data to create (default: %default)')
+        self.settings.bytesize(
+            ['file-size'], 
+            'size of one file',
+            default=16*1024)
+        self.settings.bytesize(
+            ['chunk-size'], 
+            'generate data in chunks of this size',
+            default=16*1024)
+        self.settings.integer(
+            ['depth'], 
+            'depth of directory tree',
+            default=3)
+        self.settings.integer(
+            ['max-files'], 
+            'max files/dirs per dir',
+            default=128)
+        self.settings.integer(
+            ['seed'], 
+            'seed for random number generator',
+            default=0)
+        self.settings.boolean(
+            ['quiet'],
+            'do not report progress')
         
     def process_args(self, args):
         outputdir = args[0]
         bytes = self.settings['create']
         self.gen = genbackupdatalib.DataGenerator(self.settings['seed'])
-        self.names = genbackupdatalib.NameGenerator(outputdir, 
-                                                    self.settings['depth'],
-                                                    self.settings['max-files'])
+        self.names = genbackupdatalib.NameGenerator(
+            outputdir, self.settings['depth'], self.settings['max-files'])
         
         self.setup_ttystatus()
         self.status['total'] = bytes
@@ -72,13 +77,12 @@ class GenbackupdataApp(cliapp.Application):
         dirname = os.path.dirname(pathname)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
-        f = open(pathname, 'wb')
-        while bytes >= chunk_size:
-            self.write_bytes(f, chunk_size)
-            bytes -= chunk_size
-        if bytes > 0:
-            self.write_bytes(f, bytes)
-        f.close()
+        with open(pathname, 'wb') as f:
+            while bytes >= chunk_size:
+                self.write_bytes(f, chunk_size)
+                bytes -= chunk_size
+            if bytes > 0:
+                self.write_bytes(f, bytes)
 
     def write_bytes(self, f, bytes):
         chunk = self.gen.generate(bytes)
@@ -91,17 +95,10 @@ class GenbackupdataApp(cliapp.Application):
             self.status.disable()
         self.status['written'] = 0
         self.status['total'] = 0
-        self.status.add(ttystatus.Literal('Generating: '))
-        self.status.add(ttystatus.ByteSize('written'))
-        self.status.add(ttystatus.Literal(' of '))
-        self.status.add(ttystatus.ByteSize('total'))
-        self.status.add(ttystatus.Literal(' '))
-        self.status.add(ttystatus.PercentDone('written', 'total'))
-        self.status.add(ttystatus.Literal(' ('))
-        self.status.add(ttystatus.ByteSpeed('written'))
-        self.status.add(ttystatus.Literal(')'))
+        self.status.format(
+            'Generating %ByteSize(written) of %ByteSize(total) '
+            '%PercentDone(written,total) (%ByteSpeed(written))')
             
 
 if __name__ == '__main__':
     GenbackupdataApp().run()
-

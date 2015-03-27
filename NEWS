@@ -1,6 +1,12 @@
 NEWS for genbackupdata
 ======================
 
+Version 1.8, released UNRELEASED
+--------------------------------
+
+* Change how binary data gets generated. It is now much less repetetive.
+  Suggested by Rob Kendrick.
+
 Version 1.7, released 2012-09-29
 --------------------------------
 
