@@ -28,17 +28,22 @@ class DataGenerator(object):
     def __init__(self, seed):
         key = struct.pack('!Q', seed)
         self._arc4 = Crypto.Cipher.ARC4.new(key)
-        self._buffer = ''
+        self._buffer = []
+        self._buffer_length = 0
 
     def generate(self, size):
-        while len(self._buffer) < size:
-            self._buffer += self._generate_junk()
+        while self._buffer_length < size:
+            self._generate_junk()
         return self._split_off_data(size)
 
     def _generate_junk(self):
-        return self._arc4.encrypt(self._data)
+        junk = self._arc4.encrypt(self._data)
+        self._buffer.append(junk)
+        self._buffer_length += len(junk)
 
     def _split_off_data(self, size):
-        data = self._buffer[:size]
-        self._buffer = self._buffer[size:]
+        self._buffer = [''.join(self._buffer)]
+        data = self._buffer[0][:size]
+        self._buffer[0] = self._buffer[0][size:]
+        self._buffer_length -= len(data)
         return data
