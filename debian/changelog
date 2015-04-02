@@ -4,6 +4,8 @@ genbackupdata (1.8-1) UNRELEASED; urgency=low
   * debian/control: Move Homepage: to source stanza.
   * debian/control: Update Standards-Version to 3.9.5. No further
     changes required.
+  * debian/control: Depend and build depend on python-crypto, to get
+    the ARC4 implementation.
 
  -- Lars Wirzenius <liw@liw.fi>  Sat, 29 Mar 2014 12:39:22 +0000
 
