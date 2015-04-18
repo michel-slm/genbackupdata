@@ -81,4 +81,3 @@ class NameGeneratorTests(unittest.TestCase):
     def test_returns_1tuple_for_depth_zero(self):
         names = genbackupdatalib.NameGenerator(self.tempdir, 0, 1)
         self.assertEqual(names._path_tuple(42), (42,))
-
