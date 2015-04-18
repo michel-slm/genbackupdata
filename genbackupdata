@@ -1,16 +1,16 @@
 #!/usr/bin/python
 # Copyright 2011  Lars Wirzenius
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -27,39 +27,39 @@ class GenbackupdataApp(cliapp.Application):
 
     def add_settings(self):
         self.settings.bytesize(
-            ['create', 'c'], 
+            ['create', 'c'],
             'how much data to create (default: %default)')
         self.settings.bytesize(
-            ['file-size'], 
+            ['file-size'],
             'size of one file',
             default=16*1024)
         self.settings.bytesize(
-            ['chunk-size'], 
+            ['chunk-size'],
             'generate data in chunks of this size',
             default=16*1024)
         self.settings.integer(
-            ['depth'], 
+            ['depth'],
             'depth of directory tree',
             default=3)
         self.settings.integer(
-            ['max-files'], 
+            ['max-files'],
             'max files/dirs per dir',
             default=128)
         self.settings.integer(
-            ['seed'], 
+            ['seed'],
             'seed for random number generator',
             default=0)
         self.settings.boolean(
             ['quiet'],
             'do not report progress')
-        
+
     def process_args(self, args):
         outputdir = args[0]
         bytes = self.settings['create']
         self.gen = genbackupdatalib.DataGenerator(self.settings['seed'])
         self.names = genbackupdatalib.NameGenerator(
             outputdir, self.settings['depth'], self.settings['max-files'])
-        
+
         self.setup_ttystatus()
         self.status['total'] = bytes
         while bytes > 0:
@@ -70,7 +70,7 @@ class GenbackupdataApp(cliapp.Application):
 
     def create_file(self, bytes):
         '''Generate one output file.'''
-        
+
         file_size = self.settings['file-size']
         chunk_size = self.settings['chunk-size']
         pathname = self.names.new()
@@ -88,7 +88,7 @@ class GenbackupdataApp(cliapp.Application):
         chunk = self.gen.generate(bytes)
         f.write(chunk)
         self.status['written'] += bytes
-        
+
     def setup_ttystatus(self):
         self.status = ttystatus.TerminalStatus(period=0.1)
         if self.settings['quiet']:
@@ -98,7 +98,7 @@ class GenbackupdataApp(cliapp.Application):
         self.status.format(
             'Generating %ByteSize(written) of %ByteSize(total) '
             '%PercentDone(written,total) (%ByteSpeed(written))')
-            
+
 
 if __name__ == '__main__':
     GenbackupdataApp().run()
