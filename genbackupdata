@@ -17,7 +17,6 @@
 
 import cliapp
 import os
-import sys
 import ttystatus
 
 import genbackupdatalib
