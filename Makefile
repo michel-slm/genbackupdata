@@ -7,6 +7,7 @@ check:
 	python -m CoverageTestRunner --ignore-missing-from without-tests
 	rm -f .coverage
 	cmdtest tests
+	pep8 genbackupdata genbackupdatalib
 
 clean:
 	rm -rf *.py[co] */*.py[co] build dist MANIFEST 
