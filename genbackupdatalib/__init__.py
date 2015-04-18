@@ -16,7 +16,7 @@
 
 __version__ = '1.7'
 
-from generator import DataGenerator
-from names import NameGenerator
+from .generator import DataGenerator
+from .names import NameGenerator
 
 __all__ = locals()
