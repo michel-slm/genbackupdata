@@ -31,11 +31,11 @@ class GenbackupdataApp(cliapp.Application):
         self.settings.bytesize(
             ['file-size'],
             'size of one file',
-            default=16*1024)
+            default=16 * 1024)
         self.settings.bytesize(
             ['chunk-size'],
             'generate data in chunks of this size',
-            default=16*1024)
+            default=16 * 1024)
         self.settings.integer(
             ['depth'],
             'depth of directory tree',

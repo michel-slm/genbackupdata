@@ -23,7 +23,7 @@ class DataGenerator(object):
 
     '''Generate random binary data.'''
 
-    _data = 'x' * 1024**2
+    _data = 'x' * 1024 ** 2
 
     def __init__(self, seed):
         key = struct.pack('!Q', seed)
