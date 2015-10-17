@@ -59,7 +59,7 @@ class GenbackupdataApp(cliapp.Application):
         self.names = genbackupdatalib.NameGenerator(
             outputdir, self.settings['depth'], self.settings['max-files'])
 
-        self.setup_ttystatus()
+        self.setup_ttystatus(outputdir)
         self.status['total'] = bytes
         while bytes > 0:
             n = min(self.settings['file-size'], bytes)
@@ -89,15 +89,24 @@ class GenbackupdataApp(cliapp.Application):
         f.write(chunk)
         self.status['written'] += bytes
 
-    def setup_ttystatus(self):
+    def setup_ttystatus(self, outputdir):
         self.status = ttystatus.TerminalStatus(period=0.1)
         if self.settings['quiet']:
             self.status.disable()
+        if hasattr(self.status, 'start_new_line'):
+            self.status.format(
+                'Generating backup data: %Pathname(outputdir)\n'
+                '%ByteSize(written) of %ByteSize(total) '
+                '%PercentDone(written,total) (%ByteSpeed(written))\n'
+                '%RemainingTime(written,total) %ProgressBar(written,total)')
+        else:
+            self.status.format(
+                'Generating %ByteSize(written) of %ByteSize(total) '
+                '%PercentDone(written,total) (%ByteSpeed(written))')
+
         self.status['written'] = 0
         self.status['total'] = 0
-        self.status.format(
-            'Generating %ByteSize(written) of %ByteSize(total) '
-            '%PercentDone(written,total) (%ByteSpeed(written))')
+        self.status['outputdir'] = outputdir
 
 
 if __name__ == '__main__':
