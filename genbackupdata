@@ -65,6 +65,7 @@ class GenbackupdataApp(cliapp.Application):
             n = min(self.settings['file-size'], bytes)
             self.create_file(n)
             bytes -= n
+        self.status.flush()
         self.status.finish()
 
     def create_file(self, bytes):
