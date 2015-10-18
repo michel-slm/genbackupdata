@@ -1,9 +1,9 @@
-genbackupdata (1.9-1) UNRELEASED; urgency=medium
+genbackupdata (1.9-1) unstable; urgency=medium
 
   * New upstream release.
   * Include NEWS, README in the package.
 
- -- Lars Wirzenius <liw@liw.fi>  Sun, 19 Jul 2015 13:30:48 +0300
+ -- Lars Wirzenius <liw@liw.fi>  Sun, 18 Oct 2015 10:29:58 +0300
 
 genbackupdata (1.8-1) unstable; urgency=low
 

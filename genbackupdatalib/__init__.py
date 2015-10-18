@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-__version__ = '1.8'
+__version__ = '1.9'
 
 from .generator import DataGenerator
 from .names import NameGenerator
