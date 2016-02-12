@@ -2,6 +2,16 @@
 
 set -eu
 
+# Run unit tests.
+python -m CoverageTestRunner --ignore-missing-from without-tests
+rm -f .coverage
+
+
+
+# Run yarn.
+
+# We need to set PYTHONPATH so that yarnstep.py is found in the
+# IMPLEMENTS when yarn runs them.
 if env | grep '^PYTHONPATH=' > /dev/null
 then
     PYTHONPATH="$PYTHONPATH:."
@@ -11,3 +21,8 @@ fi
 
 yarn --env "PYTHONPATH=$PYTHONPATH" \
      --shell python2 --shell-arg '' manual.yarn "$@"
+
+
+# Run static Python checking tools.
+
+pep8 genbackupdata genbackupdatalib
