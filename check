@@ -2,4 +2,12 @@
 
 set -eu
 
-yarn --shell python2 --shell-arg '' manual.yarn "$@"
+if env | grep '^PYTHONPATH=' > /dev/null
+then
+    PYTHONPATH="$PYTHONPATH:."
+else
+    PYTHONPATH="."
+fi
+
+yarn --env "PYTHONPATH=$PYTHONPATH" \
+     --shell python2 --shell-arg '' manual.yarn "$@"

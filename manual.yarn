@@ -109,66 +109,49 @@ This chapter implements the various scenario steps used in this
 manual.
 
     IMPLEMENTS WHEN user runs genbackupdata --create=(\S+) (.+)
-    import os
     import cliapp
-    size = os.environ['MATCH_1']
-    args = os.environ['MATCH_2'].split()
+    import yarnstep
+    size = yarnstep.get_next_match()
+    args = yarnstep.get_next_match().split()
     opts = args[:-1]
-    dirname = os.path.join(os.environ['DATADIR'], args[-1])
-    bin = os.path.join(os.environ['SRCDIR'], 'genbackupdata')
+    dirname = yarnstep.datadir(args[-1])
+    bin = yarnstep.srcdir('genbackupdata')
     cliapp.runcmd([bin, '--create', size] + opts + [dirname])
 
     IMPLEMENTS THEN directory (\S+) contains (\d+) bytes in files
     import os
-    root = os.path.join(os.environ['DATADIR'], os.environ['MATCH_1'])
-    wanted_bytes = int(os.environ['MATCH_2'])
-    total_bytes = 0
-    for dirname, subdirs, filenames in os.walk(root):
-        for filename in filenames:
-            pathname = os.path.join(dirname, filename)
-            print pathname, os.path.getsize(pathname)
-            total_bytes += os.path.getsize(pathname)
+    import yarnstep
+    root = yarnstep.get_next_match_as_datadir_path()
+    wanted_bytes = yarnstep.get_next_match_as_int()
+    total_bytes = sum(
+        os.path.getsize(x) for x in yarnstep.iter_over_files(root))
     assert wanted_bytes == total_bytes, \
         '%s != %s' % (wanted_bytes, total_bytes)
 
     IMPLEMENTS THEN directory (\S+) is about (\d+) bytes when compressed
-    import os
     import zlib
-    root = os.path.join(os.environ['DATADIR'], os.environ['MATCH_1'])
-    wanted_bytes = int(os.environ['MATCH_2'])
-    data = ''
-    for dirname, subdirs, filenames in os.walk(root):
-        for filename in filenames:
-            pathname = os.path.join(dirname, filename)
-            with open(pathname) as f:
-                data += f.read()
+    import yarnstep
+    root = yarnstep.get_next_match_as_datadir_path()
+    wanted_bytes = yarnstep.get_next_match_as_int()
+    data = ''.join(yarnstep.cat(x) for x in yarnstep.iter_over_files(root))
     compressed = zlib.compress(data)
     size_delta = len(compressed) - len(data)
-    print 'data:', len(data)
-    print 'compressed:', len(compressed)
-    print 'size_delta:', size_delta
     assert abs(size_delta) < 1000
 
     IMPLEMENTS THEN all files in (\S+) are duplicates
     import collections
-    import os
-    root = os.path.join(os.environ['DATADIR'], os.environ['MATCH_1'])
+    import yarnstep
+    root = yarnstep.get_next_match_as_datadir_path()
     files = collections.Counter()
-    for dirname, subdirs, filenames in os.walk(root):
-        for filename in filenames:
-            pathname = os.path.join(dirname, filename)
-            with open(pathname) as f:
-                data = f.read()
-                files[data] += 1
+    for pathname in yarnstep.iter_over_files(root):
+        files[yarnstep.cat(pathname)] += 1
     for data in files:
         assert files[data] == 2
 
     IMPLEMENTS THEN directory (\S+) contains (\d+) files?
     import collections
-    import os
-    root = os.path.join(os.environ['DATADIR'], os.environ['MATCH_1'])
-    wanted_count = int(os.environ['MATCH_2'])
-    file_count = 0
-    for dirname, subdirs, filenames in os.walk(root):
-        file_count += len(filenames)
+    import yarnstep
+    root = yarnstep.get_next_match_as_datadir_path()
+    wanted_count = yarnstep.get_next_match_as_int()
+    file_count = len(list(yarnstep.iter_over_files(root)))
     assert file_count == wanted_count
